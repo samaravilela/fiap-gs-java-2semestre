@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: zyntra-he-backend
+    env: java
+    buildCommand: ./mvnw clean package -DskipTests
+    startCommand: java -jar target/quarkus-app/quarkus-run.jar
+    envVars:
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        value: 5432
+      - key: DB_NAME
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: CORS_ORIGINS
+        value: https://zyntra-he.vercel.app,http://localhost:5173,http://localhost:3000
+
