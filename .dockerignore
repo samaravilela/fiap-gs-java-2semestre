@@ -6,4 +6,7 @@ README.md
 .idea/
 .vscode/
 *.iml
+.DS_Store
+*.log
+.mvn/wrapper/maven-wrapper.jar
 
