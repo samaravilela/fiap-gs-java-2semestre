@@ -6,47 +6,49 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "cursos")
+@Table(name = "T_CURSOS")
 public class Curso {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
     
     @NotBlank(message = "Título é obrigatório")
-    @Column(nullable = false)
+    @Column(name = "TITULO", nullable = false)
     private String titulo;
     
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "DESCRICAO")
+    @Lob
     private String descricao;
     
-    @Column(name = "duracao")
+    @Column(name = "DURACAO")
     private String duracao;
     
-    @Column(name = "formato")
+    @Column(name = "FORMATO")
     private String formato;
     
-    @Column(name = "preco")
+    @Column(name = "PRECO")
     private String preco;
     
-    @Column(name = "url", length = 500)
+    @Column(name = "URL", length = 500)
     private String url;
     
-    @Column(name = "data_criacao")
+    @Column(name = "DATA_CRIACAO")
     private LocalDateTime dataCriacao;
     
-    @Column(name = "data_atualizacao")
+    @Column(name = "DATA_ATUALIZACAO")
     private LocalDateTime dataAtualizacao;
     
-    @Column(name = "ativo")
-    private Boolean ativo;
+    @Column(name = "ATIVO")
+    private String ativo;
     
     @PrePersist
     protected void onCreate() {
         dataCriacao = LocalDateTime.now();
         dataAtualizacao = LocalDateTime.now();
         if (ativo == null) {
-            ativo = true;
+            ativo = "S";
         }
     }
     
@@ -128,12 +130,20 @@ public class Curso {
         this.dataAtualizacao = dataAtualizacao;
     }
     
-    public Boolean getAtivo() {
+    public String getAtivo() {
         return ativo;
     }
     
-    public void setAtivo(Boolean ativo) {
+    public void setAtivo(String ativo) {
         this.ativo = ativo;
+    }
+    
+    public Boolean isAtivo() {
+        return "S".equals(ativo);
+    }
+    
+    public void setAtivoBoolean(Boolean ativo) {
+        this.ativo = ativo ? "S" : "N";
     }
 }
 

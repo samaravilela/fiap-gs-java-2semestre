@@ -6,45 +6,46 @@ import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "tutores")
+@Table(name = "T_TUTORES")
 public class Tutor {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
     
     @NotBlank(message = "Nome é obrigatório")
-    @Column(nullable = false)
+    @Column(name = "NOME", nullable = false)
     private String nome;
     
     @NotBlank(message = "Especialidade é obrigatória")
-    @Column(nullable = false)
+    @Column(name = "ESPECIALIDADE", nullable = false)
     private String especialidade;
     
     @NotBlank(message = "Email é obrigatório")
     @Email(message = "Email deve ser válido")
-    @Column(nullable = false, unique = true)
+    @Column(name = "EMAIL", nullable = false, unique = true)
     private String email;
     
     @NotBlank(message = "Telefone é obrigatório")
-    @Column(nullable = false)
+    @Column(name = "TELEFONE", nullable = false)
     private String telefone;
     
-    @Column(name = "data_criacao")
+    @Column(name = "DATA_CRIACAO")
     private LocalDateTime dataCriacao;
     
-    @Column(name = "data_atualizacao")
+    @Column(name = "DATA_ATUALIZACAO")
     private LocalDateTime dataAtualizacao;
     
-    @Column(name = "ativo")
-    private Boolean ativo;
+    @Column(name = "ATIVO")
+    private String ativo;
     
     @PrePersist
     protected void onCreate() {
         dataCriacao = LocalDateTime.now();
         dataAtualizacao = LocalDateTime.now();
         if (ativo == null) {
-            ativo = true;
+            ativo = "S";
         }
     }
     
@@ -110,12 +111,20 @@ public class Tutor {
         this.dataAtualizacao = dataAtualizacao;
     }
     
-    public Boolean getAtivo() {
+    public String getAtivo() {
         return ativo;
     }
     
-    public void setAtivo(Boolean ativo) {
+    public void setAtivo(String ativo) {
         this.ativo = ativo;
+    }
+    
+    public Boolean isAtivo() {
+        return "S".equals(ativo);
+    }
+    
+    public void setAtivoBoolean(Boolean ativo) {
+        this.ativo = ativo ? "S" : "N";
     }
 }
 

@@ -7,31 +7,32 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "usuarios")
+@Table(name = "T_USUARIOS")
 public class Usuario {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
     
     @NotBlank(message = "Email é obrigatório")
     @Email(message = "Email deve ser válido")
-    @Column(unique = true, nullable = false)
+    @Column(name = "EMAIL", unique = true, nullable = false)
     private String email;
     
     @NotBlank(message = "Senha é obrigatória")
     @Size(min = 6, message = "Senha deve ter no mínimo 6 caracteres")
-    @Column(nullable = false)
+    @Column(name = "SENHA", nullable = false)
     private String senha;
     
     @NotBlank(message = "Nome é obrigatório")
-    @Column(nullable = false)
+    @Column(name = "NOME", nullable = false)
     private String nome;
     
-    @Column(name = "data_criacao")
+    @Column(name = "DATA_CRIACAO")
     private LocalDateTime dataCriacao;
     
-    @Column(name = "data_atualizacao")
+    @Column(name = "DATA_ATUALIZACAO")
     private LocalDateTime dataAtualizacao;
     
     @PrePersist

@@ -29,7 +29,7 @@ public class TutorDAO {
     
     public List<Tutor> listarAtivos() {
         TypedQuery<Tutor> query = entityManager.createQuery(
-            "SELECT t FROM Tutor t WHERE t.ativo = true ORDER BY t.nome", Tutor.class);
+            "SELECT t FROM Tutor t WHERE t.ativo = 'S' ORDER BY t.nome", Tutor.class);
         return query.getResultList();
     }
     

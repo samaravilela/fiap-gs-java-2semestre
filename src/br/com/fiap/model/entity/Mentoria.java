@@ -9,48 +9,48 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "mentorias")
+@Table(name = "T_MENTORIAS")
 public class Mentoria {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
     
     @NotBlank(message = "Nome completo é obrigatório")
-    @Column(name = "nome_completo", nullable = false)
+    @Column(name = "NOME_COMPLETO", nullable = false)
     private String nomeCompleto;
     
     @NotBlank(message = "CPF é obrigatório")
     @Pattern(regexp = "\\d{11}", message = "CPF deve conter 11 dígitos")
-    @Column(nullable = false, length = 11)
+    @Column(name = "CPF", nullable = false, length = 11)
     private String cpf;
     
     @NotBlank(message = "Email é obrigatório")
     @Email(message = "Email deve ser válido")
-    @Column(nullable = false)
+    @Column(name = "EMAIL", nullable = false)
     private String email;
     
     @NotBlank(message = "Telefone é obrigatório")
-    @Column(nullable = false)
+    @Column(name = "TELEFONE", nullable = false)
     private String telefone;
     
-    @Future(message = "Data deve ser futura")
-    @Column(nullable = false)
+    @Column(name = "DATA", nullable = false)
     private LocalDate data;
     
-    @Column(name = "data_criacao")
+    @Column(name = "DATA_CRIACAO")
     private LocalDateTime dataCriacao;
     
-    @Column(name = "status")
+    @Column(name = "STATUS")
     @Enumerated(EnumType.STRING)
     private StatusMentoria status;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tutor_id")
+    @JoinColumn(name = "TUTOR_ID")
     private Tutor tutor;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id")
+    @JoinColumn(name = "USUARIO_ID")
     private Usuario usuario;
     
     @PrePersist

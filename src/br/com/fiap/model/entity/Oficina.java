@@ -7,55 +7,58 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "oficinas")
+@Table(name = "T_OFICINAS")
 public class Oficina {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
     
     @NotBlank(message = "Nome do empreendimento é obrigatório")
-    @Column(name = "nome_empreendimento", nullable = false)
+    @Column(name = "NOME_EMPREENDIMENTO", nullable = false)
     private String nomeEmpreendimento;
     
     @NotBlank(message = "CNPJ é obrigatório")
     @Pattern(regexp = "\\d{14}", message = "CNPJ deve conter 14 dígitos")
-    @Column(nullable = false, unique = true, length = 14)
+    @Column(name = "CNPJ", nullable = false, unique = true, length = 14)
     private String cnpj;
     
     @NotBlank(message = "Nome da empresa é obrigatório")
-    @Column(name = "nome_empresa", nullable = false)
+    @Column(name = "NOME_EMPRESA", nullable = false)
     private String nomeEmpresa;
     
     @NotBlank(message = "Localização é obrigatória")
     @Size(min = 10, message = "Localização deve ter no mínimo 10 caracteres")
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(name = "LOCALIZACAO", nullable = false)
+    @Lob
     private String localizacao;
     
     @NotBlank(message = "Serviços são obrigatórios")
     @Size(min = 20, message = "Descrição dos serviços deve ter no mínimo 20 caracteres")
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(name = "SERVICOS", nullable = false)
+    @Lob
     private String servicos;
     
-    @Column(name = "cidade")
+    @Column(name = "CIDADE")
     private String cidade;
     
-    @Column(name = "estado", length = 2)
+    @Column(name = "ESTADO", length = 2)
     private String estado;
     
-    @Column(name = "especialidade")
+    @Column(name = "ESPECIALIDADE")
     private String especialidade;
     
-    @Column(name = "avaliacao")
+    @Column(name = "AVALIACAO")
     private Double avaliacao;
     
-    @Column(name = "data_criacao")
+    @Column(name = "DATA_CRIACAO")
     private LocalDateTime dataCriacao;
     
-    @Column(name = "data_atualizacao")
+    @Column(name = "DATA_ATUALIZACAO")
     private LocalDateTime dataAtualizacao;
     
-    @Column(name = "status")
+    @Column(name = "STATUS")
     @Enumerated(EnumType.STRING)
     private StatusOficina status;
     

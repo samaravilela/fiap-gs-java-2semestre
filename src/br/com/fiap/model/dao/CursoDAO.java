@@ -29,7 +29,7 @@ public class CursoDAO {
     
     public List<Curso> listarAtivos() {
         TypedQuery<Curso> query = entityManager.createQuery(
-            "SELECT c FROM Curso c WHERE c.ativo = true ORDER BY c.titulo", Curso.class);
+            "SELECT c FROM Curso c WHERE c.ativo = 'S' ORDER BY c.titulo", Curso.class);
         return query.getResultList();
     }
     
