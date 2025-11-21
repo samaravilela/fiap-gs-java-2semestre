@@ -3,19 +3,20 @@ package br.com.fiap.model.dao;
 import br.com.fiap.model.entity.Mentoria;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
+import jakarta.inject.Inject;
 import java.time.LocalDate;
 import java.util.List;
 
 @ApplicationScoped
 public class MentoriaDAO {
     
-    @PersistenceContext
+    @Inject
     EntityManager entityManager;
     
     public void criar(Mentoria mentoria) {
         entityManager.persist(mentoria);
+        entityManager.flush();
     }
     
     public Mentoria buscarPorId(Long id) {
@@ -44,12 +45,14 @@ public class MentoriaDAO {
     
     public void atualizar(Mentoria mentoria) {
         entityManager.merge(mentoria);
+        entityManager.flush();
     }
     
     public void remover(Long id) {
         Mentoria mentoria = buscarPorId(id);
         if (mentoria != null) {
             entityManager.remove(mentoria);
+            entityManager.flush();
         }
     }
 }

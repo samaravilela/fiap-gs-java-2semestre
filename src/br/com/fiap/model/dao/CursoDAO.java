@@ -3,18 +3,19 @@ package br.com.fiap.model.dao;
 import br.com.fiap.model.entity.Curso;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
+import jakarta.inject.Inject;
 import java.util.List;
 
 @ApplicationScoped
 public class CursoDAO {
     
-    @PersistenceContext
+    @Inject
     EntityManager entityManager;
     
     public void criar(Curso curso) {
         entityManager.persist(curso);
+        entityManager.flush();
     }
     
     public Curso buscarPorId(Long id) {
@@ -35,12 +36,14 @@ public class CursoDAO {
     
     public void atualizar(Curso curso) {
         entityManager.merge(curso);
+        entityManager.flush();
     }
     
     public void remover(Long id) {
         Curso curso = buscarPorId(id);
         if (curso != null) {
             entityManager.remove(curso);
+            entityManager.flush();
         }
     }
 }

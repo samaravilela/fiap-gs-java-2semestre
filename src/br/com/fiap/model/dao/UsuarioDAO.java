@@ -4,8 +4,8 @@ import br.com.fiap.model.entity.Usuario;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
-import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
+import jakarta.inject.Inject;
 import java.util.List;
 
 /**
@@ -15,7 +15,7 @@ import java.util.List;
 @ApplicationScoped
 public class UsuarioDAO {
     
-    @PersistenceContext
+    @Inject
     EntityManager entityManager;
     
     /**
@@ -23,6 +23,7 @@ public class UsuarioDAO {
      */
     public void criar(Usuario usuario) {
         entityManager.persist(usuario);
+        entityManager.flush();
     }
     
     /**
@@ -60,6 +61,7 @@ public class UsuarioDAO {
      */
     public void atualizar(Usuario usuario) {
         entityManager.merge(usuario);
+        entityManager.flush();
     }
     
     /**
@@ -69,6 +71,7 @@ public class UsuarioDAO {
         Usuario usuario = buscarPorId(id);
         if (usuario != null) {
             entityManager.remove(usuario);
+            entityManager.flush();
         }
     }
     

@@ -3,19 +3,20 @@ package br.com.fiap.model.dao;
 import br.com.fiap.model.entity.Oficina;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
+import jakarta.inject.Inject;
 import java.util.List;
 
 @ApplicationScoped
 public class OficinaDAO {
     
-    @PersistenceContext
+    @Inject
     EntityManager entityManager;
     
     public void criar(Oficina oficina) {
         entityManager.persist(oficina);
+        entityManager.flush();
     }
     
     public Oficina buscarPorId(Long id) {
@@ -74,12 +75,14 @@ public class OficinaDAO {
     
     public void atualizar(Oficina oficina) {
         entityManager.merge(oficina);
+        entityManager.flush();
     }
     
     public void remover(Long id) {
         Oficina oficina = buscarPorId(id);
         if (oficina != null) {
             entityManager.remove(oficina);
+            entityManager.flush();
         }
     }
     
