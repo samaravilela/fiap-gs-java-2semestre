@@ -11,7 +11,9 @@ RUN mvn dependency:go-offline -B || true
 # Copiar código fonte
 COPY src ./src
 
-# Build da aplicação Quarkus
+# Build da aplicação Quarkus com variáveis de ambiente para Oracle
+ENV QUARKUS_DATASOURCE_DB_KIND=oracle
+ENV QUARKUS_DATASOURCE_JDBC_DRIVER=oracle.jdbc.OracleDriver
 RUN mvn clean package -DskipTests -B
 
 # Verificar se o build foi bem-sucedido

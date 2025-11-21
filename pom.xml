@@ -83,6 +83,13 @@
         <artifactId>quarkus-maven-plugin</artifactId>
         <version>${quarkus.platform.version}</version>
         <extensions>true</extensions>
+        <configuration>
+          <properties>
+            <quarkus.datasource.db-kind>oracle</quarkus.datasource.db-kind>
+            <quarkus.datasource.jdbc.driver>oracle.jdbc.OracleDriver</quarkus.datasource.jdbc.driver>
+            <quarkus.profile>prod</quarkus.profile>
+          </properties>
+        </configuration>
         <executions>
           <execution>
             <goals>
