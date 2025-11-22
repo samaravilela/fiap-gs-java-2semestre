@@ -51,7 +51,7 @@ CREATE DATABASE zyntra_he;
 ./mvnw quarkus:dev
 ```
 
-A aplicação estará disponível em: `https://fiap-gs-java-2semestre-2.onrender.com`
+A aplicação estará disponível em: `https://fiap-gs-java-2semestre.onrender.com`
 
 ### Modo Produção
 
@@ -104,7 +104,7 @@ java -jar target/quarkus-app/quarkus-run.jar
 ## Documentação da API
 
 Acesse a documentação Swagger/OpenAPI em:
-- `hhttps://fiap-gs-java-2semestre-2.onrender.com/api-docs`
+- `https://fiap-gs-java-2semestre.onrender.com/api-docs`
 
 ## Deploy
 
