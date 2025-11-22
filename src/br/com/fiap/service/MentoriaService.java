@@ -61,6 +61,13 @@ public class MentoriaService {
         return mentoriaDAO.listarTodos();
     }
     
+    public List<Mentoria> buscarPorEmail(String email) {
+        if (email == null || email.trim().isEmpty()) {
+            throw new ValidationException("Email é obrigatório");
+        }
+        return mentoriaDAO.buscarPorEmail(email.trim());
+    }
+    
     @Transactional
     public boolean atualizar(Mentoria mentoria) {
         validarMentoria(mentoria);

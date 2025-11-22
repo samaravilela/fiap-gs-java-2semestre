@@ -39,10 +39,19 @@ public class MentoriaResource {
     }
     
     @GET
-    public Response listarTodos() {
+    public Response listarTodos(@QueryParam("email") String email) {
         try {
-            List<Mentoria> mentorias = mentoriaService.listarTodos();
+            List<Mentoria> mentorias;
+            if (email != null && !email.trim().isEmpty()) {
+                mentorias = mentoriaService.buscarPorEmail(email);
+            } else {
+                mentorias = mentoriaService.listarTodos();
+            }
             return Response.ok(mentorias).build();
+        } catch (ValidationException e) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(e.getMessage())
+                    .build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                     .entity("Erro interno: " + e.getMessage())
