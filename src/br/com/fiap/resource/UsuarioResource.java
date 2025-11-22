@@ -32,7 +32,7 @@ public class UsuarioResource {
     public Response criar(@Valid Usuario usuario) {
         try {
             Usuario novoUsuario = usuarioService.criar(usuario);
-            novoUsuario.setSenha(null); // Não retornar senha
+            // Senha não será serializada devido ao @JsonIgnore na entidade
             return Response.status(Response.Status.CREATED)
                     .entity(novoUsuario)
                     .build();
@@ -58,7 +58,7 @@ public class UsuarioResource {
             String senha = credenciais.get("senha");
             
             Usuario usuario = usuarioService.autenticar(email, senha);
-            usuario.setSenha(null); // Não retornar senha
+            // Senha não será serializada devido ao @JsonIgnore na entidade
             
             Map<String, Object> response = new HashMap<>();
             response.put("usuario", usuario);
@@ -87,8 +87,7 @@ public class UsuarioResource {
     public Response listarTodos() {
         try {
             java.util.List<Usuario> usuarios = usuarioService.listarTodos();
-            // Remover senhas antes de retornar
-            usuarios.forEach(u -> u.setSenha(null));
+            // Senhas não serão serializadas devido ao @JsonIgnore na entidade
             return Response.ok(usuarios).build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
@@ -105,7 +104,7 @@ public class UsuarioResource {
     public Response buscarPorId(@PathParam("id") Long id) {
         try {
             Usuario usuario = usuarioService.buscarPorId(id);
-            usuario.setSenha(null); // Não retornar senha
+            // Senha não será serializada devido ao @JsonIgnore na entidade
             return Response.ok(usuario).build();
         } catch (ResourceNotFoundException e) {
             return Response.status(Response.Status.NOT_FOUND)
@@ -125,7 +124,7 @@ public class UsuarioResource {
             usuario.setId(id);
             usuarioService.atualizar(usuario);
             Usuario usuarioAtualizado = usuarioService.buscarPorId(id);
-            usuarioAtualizado.setSenha(null); // Não retornar senha
+            // Senha não será serializada devido ao @JsonIgnore na entidade
             return Response.ok(usuarioAtualizado).build();
         } catch (ResourceNotFoundException e) {
             return Response.status(Response.Status.NOT_FOUND)
