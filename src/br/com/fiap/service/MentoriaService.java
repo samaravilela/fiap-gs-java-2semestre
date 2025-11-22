@@ -4,7 +4,9 @@ import br.com.fiap.exception.BusinessRuleException;
 import br.com.fiap.exception.ResourceNotFoundException;
 import br.com.fiap.exception.ValidationException;
 import br.com.fiap.model.entity.Mentoria;
+import br.com.fiap.model.entity.Usuario;
 import br.com.fiap.model.dao.MentoriaDAO;
+import br.com.fiap.model.dao.UsuarioDAO;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -17,9 +19,21 @@ public class MentoriaService {
     @Inject
     MentoriaDAO mentoriaDAO;
     
+    @Inject
+    UsuarioDAO usuarioDAO;
+    
     @Transactional
     public Mentoria criar(Mentoria mentoria) {
         validarMentoria(mentoria);
+        
+        // Verificar se o email está cadastrado no sistema
+        Usuario usuario = usuarioDAO.buscarPorEmail(mentoria.getEmail());
+        if (usuario == null) {
+            throw new BusinessRuleException("Email não cadastrado. É necessário ter uma conta para agendar uma mentoria. Por favor, cadastre-se primeiro.");
+        }
+        
+        // Associar o usuário encontrado à mentoria
+        mentoria.setUsuario(usuario);
         
         if (mentoria.getData().isBefore(LocalDate.now())) {
             throw new BusinessRuleException("Data da mentoria não pode ser no passado");
@@ -55,6 +69,15 @@ public class MentoriaService {
         Mentoria mentoriaExistente = mentoriaDAO.buscarPorId(mentoria.getId());
         if (mentoriaExistente == null) {
             throw new ResourceNotFoundException("Mentoria com ID " + mentoria.getId() + " não encontrada");
+        }
+        
+        // Verificar se o email está cadastrado no sistema (se foi alterado)
+        if (!mentoriaExistente.getEmail().equals(mentoria.getEmail())) {
+            Usuario usuario = usuarioDAO.buscarPorEmail(mentoria.getEmail());
+            if (usuario == null) {
+                throw new BusinessRuleException("Email não cadastrado. É necessário ter uma conta para agendar uma mentoria. Por favor, cadastre-se primeiro.");
+            }
+            mentoriaExistente.setUsuario(usuario);
         }
         
         if (mentoria.getData().isBefore(LocalDate.now())) {
