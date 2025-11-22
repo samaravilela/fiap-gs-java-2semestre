@@ -1,5 +1,6 @@
 package br.com.fiap.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -47,10 +48,12 @@ public class Mentoria {
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TUTOR_ID")
+    @JsonIgnore
     private Tutor tutor;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USUARIO_ID")
+    @JsonIgnore
     private Usuario usuario;
     
     @PrePersist

@@ -20,25 +20,44 @@ public class MentoriaDAO {
     }
     
     public Mentoria buscarPorId(Long id) {
-        return entityManager.find(Mentoria.class, id);
+        TypedQuery<Mentoria> query = entityManager.createQuery(
+            "SELECT m FROM Mentoria m " +
+            "LEFT JOIN FETCH m.tutor " +
+            "LEFT JOIN FETCH m.usuario " +
+            "WHERE m.id = :id", Mentoria.class);
+        query.setParameter("id", id);
+        try {
+            return query.getSingleResult();
+        } catch (jakarta.persistence.NoResultException e) {
+            return null;
+        }
     }
     
     public List<Mentoria> listarTodos() {
         TypedQuery<Mentoria> query = entityManager.createQuery(
-            "SELECT m FROM Mentoria m ORDER BY m.data DESC", Mentoria.class);
+            "SELECT DISTINCT m FROM Mentoria m " +
+            "LEFT JOIN FETCH m.tutor " +
+            "LEFT JOIN FETCH m.usuario " +
+            "ORDER BY m.data DESC", Mentoria.class);
         return query.getResultList();
     }
     
     public List<Mentoria> buscarPorData(LocalDate data) {
         TypedQuery<Mentoria> query = entityManager.createQuery(
-            "SELECT m FROM Mentoria m WHERE m.data = :data ORDER BY m.dataCriacao", Mentoria.class);
+            "SELECT DISTINCT m FROM Mentoria m " +
+            "LEFT JOIN FETCH m.tutor " +
+            "LEFT JOIN FETCH m.usuario " +
+            "WHERE m.data = :data ORDER BY m.dataCriacao", Mentoria.class);
         query.setParameter("data", data);
         return query.getResultList();
     }
     
     public List<Mentoria> buscarPorEmail(String email) {
         TypedQuery<Mentoria> query = entityManager.createQuery(
-            "SELECT m FROM Mentoria m WHERE m.email = :email ORDER BY m.data DESC", Mentoria.class);
+            "SELECT DISTINCT m FROM Mentoria m " +
+            "LEFT JOIN FETCH m.tutor " +
+            "LEFT JOIN FETCH m.usuario " +
+            "WHERE m.email = :email ORDER BY m.data DESC", Mentoria.class);
         query.setParameter("email", email);
         return query.getResultList();
     }

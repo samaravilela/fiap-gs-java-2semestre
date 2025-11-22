@@ -51,7 +51,7 @@ CREATE DATABASE zyntra_he;
 ./mvnw quarkus:dev
 ```
 
-A aplicação estará disponível em: `http://localhost:8080/api`
+A aplicação estará disponível em: `https://fiap-gs-java-2semestre-2.onrender.com`
 
 ### Modo Produção
 
@@ -104,7 +104,7 @@ java -jar target/quarkus-app/quarkus-run.jar
 ## Documentação da API
 
 Acesse a documentação Swagger/OpenAPI em:
-- `http://localhost:8080/api-docs`
+- `hhttps://fiap-gs-java-2semestre-2.onrender.com/api-docs`
 
 ## Deploy
 
@@ -153,4 +153,7 @@ Endpoints REST que expõem a API para o frontend.
 ## Licença
 
 Este projeto é parte do trabalho acadêmico da FIAP.
+
+
+
 

@@ -17,3 +17,6 @@ VALUES
 ('Educação Financeira para Mecânicos', 'Palestras e módulos sobre precificação, comportamento profissional e gestão de lucros', '20 horas', 'Online', 'Consulte valores', true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 ('Especialização em Baterias VHE', 'Curso especializado em diagnóstico, manutenção e reparo de sistemas de baterias de veículos híbridos e elétricos', '60 horas', 'Online + Presencial', 'Consulte valores', true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
+
+
+

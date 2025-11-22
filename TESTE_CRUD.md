@@ -219,3 +219,6 @@ Se os dados não estiverem sendo persistidos:
 4. Verifique se as tabelas existem no banco
 5. Verifique os logs do Hibernate (SQL executado)
 
+
+
+
