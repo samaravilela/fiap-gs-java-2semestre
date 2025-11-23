@@ -24,9 +24,6 @@ public class Curso {
     @Lob
     private String descricao;
     
-    @Column(name = "PRECO")
-    private String preco;
-    
     @Column(name = "DATA_CRIACAO")
     private LocalDateTime dataCriacao;
     
@@ -77,14 +74,6 @@ public class Curso {
     
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-    
-    public String getPreco() {
-        return preco;
-    }
-    
-    public void setPreco(String preco) {
-        this.preco = preco;
     }
     
     public LocalDateTime getDataCriacao() {

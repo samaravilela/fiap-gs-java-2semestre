@@ -51,7 +51,6 @@ public class CursoService {
         
         cursoExistente.setTitulo(curso.getTitulo());
         cursoExistente.setDescricao(curso.getDescricao());
-        cursoExistente.setPreco(curso.getPreco());
         cursoExistente.setAtivo(curso.getAtivo());
         
         cursoDAO.atualizar(cursoExistente);
