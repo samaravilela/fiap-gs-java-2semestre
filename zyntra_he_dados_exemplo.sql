@@ -89,6 +89,31 @@ INSERT INTO T_ZYNT_AULAS_CURSO (CURSO_ID, TITULO, DESCRICAO, URL, ATIVO, DATA_CR
  'https://www.youtube.com/watch?v=QpVxRU6f3-o', 
  'S', SYSTIMESTAMP, SYSTIMESTAMP);
 
+INSERT INTO T_ZYNT_AULAS_CURSO (CURSO_ID, TITULO, DESCRICAO, URL, ATIVO, DATA_CRIACAO, DATA_ATUALIZACAO) VALUES
+(2, 'Manutenção de Inversores e Controladores', 
+ 'Técnicas de manutenção e reparo de inversores e controladores em veículos elétricos.', 
+ 'https://www.youtube.com/watch?v=8Xa2nodQ2UY', 
+ 'S', SYSTIMESTAMP, SYSTIMESTAMP);
+
+-- Aulas do Curso 3 (Diagnóstico Avançado)
+INSERT INTO T_ZYNT_AULAS_CURSO (CURSO_ID, TITULO, DESCRICAO, URL, ATIVO, DATA_CRIACAO, DATA_ATUALIZACAO) VALUES
+(3, 'Equipamentos de Diagnóstico para VHE', 
+ 'Conheça os equipamentos especializados necessários para diagnóstico em veículos híbridos e elétricos.', 
+ 'https://www.youtube.com/watch?v=5X-Kb7l8hqM', 
+ 'S', SYSTIMESTAMP, SYSTIMESTAMP);
+
+INSERT INTO T_ZYNT_AULAS_CURSO (CURSO_ID, TITULO, DESCRICAO, URL, ATIVO, DATA_CRIACAO, DATA_ATUALIZACAO) VALUES
+(3, 'Interpretação de Códigos de Erro OBD', 
+ 'Aprenda a interpretar e diagnosticar códigos de erro específicos de veículos elétricos e híbridos.', 
+ 'https://www.youtube.com/watch?v=6Xv5nYj4JqI', 
+ 'S', SYSTIMESTAMP, SYSTIMESTAMP);
+
+INSERT INTO T_ZYNT_AULAS_CURSO (CURSO_ID, TITULO, DESCRICAO, URL, ATIVO, DATA_CRIACAO, DATA_ATUALIZACAO) VALUES
+(3, 'Análise de Sistemas de Alta Tensão', 
+ 'Técnicas seguras para análise e diagnóstico de sistemas de alta tensão em veículos elétricos.', 
+ 'https://www.youtube.com/watch?v=7Yv6nZ5kLpM', 
+ 'S', SYSTIMESTAMP, SYSTIMESTAMP);
+
 ------------------------------------------------------------
 -- INSERÇÃO DE OFICINAS
 ------------------------------------------------------------
@@ -169,7 +194,7 @@ COMMIT;
 -- SELECT COUNT(*) FROM T_ZYNT_USUARIOS;        -- Deve retornar 5
 -- SELECT COUNT(*) FROM T_ZYNT_TUTORES;         -- Deve retornar 3
 -- SELECT COUNT(*) FROM T_ZYNT_CURSOS;          -- Deve retornar 3
--- SELECT COUNT(*) FROM T_ZYNT_AULAS_CURSO;     -- Deve retornar 5
+-- SELECT COUNT(*) FROM T_ZYNT_AULAS_CURSO;     -- Deve retornar 8
 -- SELECT COUNT(*) FROM T_ZYNT_OFICINAS;         -- Deve retornar 3
 -- SELECT COUNT(*) FROM T_ZYNT_OFICINA_SERVICOS; -- Deve retornar 7
 -- SELECT COUNT(*) FROM T_ZYNT_MENTORIAS;       -- Deve retornar 3
