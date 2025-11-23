@@ -27,9 +27,7 @@ public class AulaCursoDAO {
             "SELECT a FROM AulaCurso a ORDER BY a.titulo", AulaCurso.class);
         List<AulaCurso> aulas = query.getResultList();
         
-        System.out.println("DAO - Total de aulas encontradas: " + aulas.size());
-        
-        // Para cada aula, buscar o CURSO_ID usando query nativa e setar no transient
+        // Setar o cursoId para cada aula usando query nativa separada
         for (AulaCurso aula : aulas) {
             try {
                 Object cursoIdObj = entityManager.createNativeQuery(
@@ -40,21 +38,27 @@ public class AulaCursoDAO {
                     aula.setCursoId(((Number) cursoIdObj).longValue());
                 }
             } catch (Exception e) {
-                System.out.println("Erro ao buscar cursoId para aula " + aula.getId() + ": " + e.getMessage());
+                // Ignora erro e continua
             }
         }
         return aulas;
     }
     
     public List<AulaCurso> buscarPorCursoId(Long cursoId) {
-        TypedQuery<AulaCurso> query = entityManager.createQuery(
-            "SELECT a FROM AulaCurso a WHERE a.curso.id = :cursoId ORDER BY a.titulo", AulaCurso.class);
-        query.setParameter("cursoId", cursoId);
-        List<AulaCurso> aulas = query.getResultList();
-        // Setar o cursoId para cada aula
-        for (AulaCurso aula : aulas) {
-            if (aula.getCurso() != null) {
-                aula.setCursoId(aula.getCurso().getId());
+        // Usar query nativa para buscar diretamente pelo CURSO_ID
+        @SuppressWarnings("unchecked")
+        List<Long> ids = entityManager.createNativeQuery(
+            "SELECT ID FROM T_ZYNT_AULAS_CURSO WHERE CURSO_ID = ?")
+            .setParameter(1, cursoId)
+            .getResultList();
+        
+        // Buscar as entidades pelos IDs
+        List<AulaCurso> aulas = new java.util.ArrayList<>();
+        for (Long id : ids) {
+            AulaCurso aula = entityManager.find(AulaCurso.class, id);
+            if (aula != null) {
+                aula.setCursoId(cursoId);
+                aulas.add(aula);
             }
         }
         return aulas;
@@ -64,10 +68,19 @@ public class AulaCursoDAO {
         TypedQuery<AulaCurso> query = entityManager.createQuery(
             "SELECT a FROM AulaCurso a WHERE a.ativo = 'S' ORDER BY a.titulo", AulaCurso.class);
         List<AulaCurso> aulas = query.getResultList();
+        
         // Setar o cursoId para cada aula
         for (AulaCurso aula : aulas) {
-            if (aula.getCurso() != null) {
-                aula.setCursoId(aula.getCurso().getId());
+            try {
+                Object cursoIdObj = entityManager.createNativeQuery(
+                    "SELECT CURSO_ID FROM T_ZYNT_AULAS_CURSO WHERE ID = ?")
+                    .setParameter(1, aula.getId())
+                    .getSingleResult();
+                if (cursoIdObj != null) {
+                    aula.setCursoId(((Number) cursoIdObj).longValue());
+                }
+            } catch (Exception e) {
+                // Ignora erro e continua
             }
         }
         return aulas;

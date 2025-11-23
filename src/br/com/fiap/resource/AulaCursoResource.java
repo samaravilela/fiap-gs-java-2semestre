@@ -50,10 +50,10 @@ public class AulaCursoResource {
             }
             
             // Log para debug
-            System.out.println("Total de aulas retornadas: " + (aulas != null ? aulas.size() : 0));
+            System.out.println("Resource - Total de aulas retornadas: " + (aulas != null ? aulas.size() : 0));
             
-            if (aulas == null || aulas.isEmpty()) {
-                return Response.ok("[]").build();
+            if (aulas == null) {
+                aulas = new java.util.ArrayList<>();
             }
             
             return Response.ok(aulas).build();
