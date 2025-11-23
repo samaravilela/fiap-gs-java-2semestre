@@ -22,6 +22,9 @@ public class AulaCurso {
     @JsonIgnore
     private Curso curso;
     
+    @Transient
+    private Long cursoIdTransient;
+    
     @NotBlank(message = "Título é obrigatório")
     @Column(name = "TITULO", nullable = false)
     private String titulo;
@@ -129,10 +132,16 @@ public class AulaCurso {
         this.dataAtualizacao = dataAtualizacao;
     }
     
-    // Método auxiliar para obter o ID do curso (evita lazy loading)
     @JsonProperty("cursoId")
     public Long getCursoId() {
+        if (cursoIdTransient != null) {
+            return cursoIdTransient;
+        }
         return curso != null ? curso.getId() : null;
+    }
+    
+    public void setCursoId(Long cursoId) {
+        this.cursoIdTransient = cursoId;
     }
 }
 
