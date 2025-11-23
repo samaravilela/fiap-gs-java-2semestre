@@ -61,65 +61,60 @@ java -jar target/quarkus-app/quarkus-run.jar
 
 ## Endpoints da API
 
-### Usuários
-- `POST /api/usuarios` - Criar usuário
-- `POST /api/usuarios/login` - Autenticar
-- `GET /api/usuarios/{id}` - Buscar por ID
-- `PUT /api/usuarios/{id}` - Atualizar
-- `DELETE /api/usuarios/{id}` - Remover
-
-### Mentorias
-- `POST /api/mentorias` - Criar mentoria
-- `GET /api/mentorias` - Listar todas
-- `GET /api/mentorias/{id}` - Buscar por ID
-- `PUT /api/mentorias/{id}` - Atualizar
-- `DELETE /api/mentorias/{id}` - Remover
-- `POST /api/mentorias/{id}/cancelar` - Cancelar
-
-### Oficinas
-- `POST /api/oficinas` - Criar oficina
-- `GET /api/oficinas` - Listar todas (com busca opcional)
-- `GET /api/oficinas/{id}` - Buscar por ID
-- `GET /api/oficinas/cidade/{cidade}` - Buscar por cidade
-- `GET /api/oficinas/estado/{estado}` - Buscar por estado
-- `PUT /api/oficinas/{id}` - Atualizar
-- `POST /api/oficinas/{id}/aprovar` - Aprovar oficina
-- `DELETE /api/oficinas/{id}` - Remover
-
-### Tutores
-- `POST /api/tutores` - Criar tutor
-- `GET /api/tutores` - Listar todos (ativos opcional)
-- `GET /api/tutores/{id}` - Buscar por ID
-- `PUT /api/tutores/{id}` - Atualizar
-- `DELETE /api/tutores/{id}` - Remover
-
-### Cursos
-- `POST /api/cursos` - Criar curso
-- `GET /api/cursos` - Listar todos (ativos opcional)
-- `GET /api/cursos/{id}` - Buscar por ID
-- `PUT /api/cursos/{id}` - Atualizar
-- `DELETE /api/cursos/{id}` - Remover
-
-### Aulas de Curso
-- `POST /api/aulas-curso` - Criar aula
-- `GET /api/aulas-curso` - Listar todas (cursoId, ativos opcional)
-- `GET /api/aulas-curso/{id}` - Buscar por ID
-- `PUT /api/aulas-curso/{id}` - Atualizar
-- `DELETE /api/aulas-curso/{id}` - Remover
-
-### Serviços de Oficinas
-- `POST /api/oficina-servicos` - Criar serviço
-- `GET /api/oficina-servicos` - Listar todos (oficinaId, ativos opcional)
-- `GET /api/oficina-servicos/{id}` - Buscar por ID
-- `PUT /api/oficina-servicos/{id}` - Atualizar
-- `DELETE /api/oficina-servicos/{id}` - Remover
-
-### Pontos de Recarga
-- `POST /api/pontos-recarga` - Criar ponto de recarga
-- `GET /api/pontos-recarga` - Listar todos (tipo, busca opcional)
-- `GET /api/pontos-recarga/{id}` - Buscar por ID
-- `PUT /api/pontos-recarga/{id}` - Atualizar
-- `DELETE /api/pontos-recarga/{id}` - Remover
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| **Usuários** |
+| `POST` | `/api/usuarios` | Criar usuário |
+| `POST` | `/api/usuarios/login` | Autenticar usuário |
+| `GET` | `/api/usuarios/{id}` | Buscar usuário por ID |
+| `PUT` | `/api/usuarios/{id}` | Atualizar usuário |
+| `DELETE` | `/api/usuarios/{id}` | Remover usuário |
+| **Mentorias** |
+| `POST` | `/api/mentorias` | Criar mentoria |
+| `GET` | `/api/mentorias` | Listar todas as mentorias |
+| `GET` | `/api/mentorias/{id}` | Buscar mentoria por ID |
+| `PUT` | `/api/mentorias/{id}` | Atualizar mentoria |
+| `DELETE` | `/api/mentorias/{id}` | Remover mentoria |
+| `POST` | `/api/mentorias/{id}/cancelar` | Cancelar mentoria |
+| **Oficinas** |
+| `POST` | `/api/oficinas` | Criar oficina |
+| `GET` | `/api/oficinas` | Listar todas as oficinas (busca opcional) |
+| `GET` | `/api/oficinas/{id}` | Buscar oficina por ID |
+| `GET` | `/api/oficinas/cidade/{cidade}` | Buscar oficinas por cidade |
+| `GET` | `/api/oficinas/estado/{estado}` | Buscar oficinas por estado |
+| `PUT` | `/api/oficinas/{id}` | Atualizar oficina |
+| `POST` | `/api/oficinas/{id}/aprovar` | Aprovar oficina |
+| `DELETE` | `/api/oficinas/{id}` | Remover oficina |
+| **Tutores** |
+| `POST` | `/api/tutores` | Criar tutor |
+| `GET` | `/api/tutores` | Listar todos os tutores (ativos opcional) |
+| `GET` | `/api/tutores/{id}` | Buscar tutor por ID |
+| `PUT` | `/api/tutores/{id}` | Atualizar tutor |
+| `DELETE` | `/api/tutores/{id}` | Remover tutor |
+| **Cursos** |
+| `POST` | `/api/cursos` | Criar curso |
+| `GET` | `/api/cursos` | Listar todos os cursos (ativos opcional) |
+| `GET` | `/api/cursos/{id}` | Buscar curso por ID |
+| `PUT` | `/api/cursos/{id}` | Atualizar curso |
+| `DELETE` | `/api/cursos/{id}` | Remover curso |
+| **Aulas de Curso** |
+| `POST` | `/api/aulas-curso` | Criar aula |
+| `GET` | `/api/aulas-curso` | Listar todas as aulas (cursoId, ativos opcional) |
+| `GET` | `/api/aulas-curso/{id}` | Buscar aula por ID |
+| `PUT` | `/api/aulas-curso/{id}` | Atualizar aula |
+| `DELETE` | `/api/aulas-curso/{id}` | Remover aula |
+| **Serviços de Oficinas** |
+| `POST` | `/api/oficina-servicos` | Criar serviço |
+| `GET` | `/api/oficina-servicos` | Listar todos os serviços (oficinaId, ativos opcional) |
+| `GET` | `/api/oficina-servicos/{id}` | Buscar serviço por ID |
+| `PUT` | `/api/oficina-servicos/{id}` | Atualizar serviço |
+| `DELETE` | `/api/oficina-servicos/{id}` | Remover serviço |
+| **Pontos de Recarga** |
+| `POST` | `/api/pontos-recarga` | Criar ponto de recarga |
+| `GET` | `/api/pontos-recarga` | Listar todos os pontos (tipo, busca opcional) |
+| `GET` | `/api/pontos-recarga/{id}` | Buscar ponto por ID |
+| `PUT` | `/api/pontos-recarga/{id}` | Atualizar ponto de recarga |
+| `DELETE` | `/api/pontos-recarga/{id}` | Remover ponto de recarga |
 
 ## Documentação da API
 
@@ -165,124 +160,99 @@ jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL
 
 ```mermaid
 classDiagram
-    direction TB
-    
-    %% Entidades (Model)
     class Usuario {
-        -Long id
-        -String email
-        -String senha
-        -String nome
-        -LocalDateTime dataCriacao
-        -LocalDateTime dataAtualizacao
+        Long id
+        String email
+        String senha
+        String nome
+        LocalDateTime dataCriacao
+        LocalDateTime dataAtualizacao
     }
     
     class Tutor {
-        -Long id
-        -String nome
-        -String especialidade
-        -String email
-        -String telefone
-        -String ativo
+        Long id
+        String nome
+        String especialidade
+        String email
+        String telefone
+        String ativo
+        LocalDateTime dataCriacao
+        LocalDateTime dataAtualizacao
     }
     
     class Curso {
-        -Long id
-        -String titulo
-        -String descricao
-        -String ativo
-        -List~AulaCurso~ aulas
+        Long id
+        String titulo
+        String descricao
+        String ativo
+        LocalDateTime dataCriacao
+        LocalDateTime dataAtualizacao
+        List~AulaCurso~ aulas
     }
     
     class AulaCurso {
-        -Long id
-        -String titulo
-        -String descricao
-        -String url
-        -String ativo
-        -Curso curso
+        Long id
+        String titulo
+        String descricao
+        String url
+        String ativo
+        LocalDateTime dataCriacao
+        LocalDateTime dataAtualizacao
+        Curso curso
     }
     
     class Oficina {
-        -Long id
-        -String nomeEmpreendimento
-        -String cnpj
-        -String localizacao
-        -StatusOficina status
-        -List~OficinaServico~ servicosOferecidos
+        Long id
+        String nomeEmpreendimento
+        String cnpj
+        String nomeEmpresa
+        String localizacao
+        String cidade
+        String estado
+        String especialidade
+        Double avaliacao
+        StatusOficina status
+        LocalDateTime dataCriacao
+        LocalDateTime dataAtualizacao
+        List~OficinaServico~ servicos
     }
     
     class OficinaServico {
-        -Long id
-        -String nome
-        -String descricao
-        -String ativo
-        -Oficina oficina
+        Long id
+        String nome
+        String descricao
+        String ativo
+        LocalDateTime dataCriacao
+        LocalDateTime dataAtualizacao
+        Oficina oficina
     }
     
     class Mentoria {
-        -Long id
-        -String nomeCompleto
-        -String cpf
-        -String email
-        -LocalDate data
-        -StatusMentoria status
-        -Tutor tutor
-        -Usuario usuario
+        Long id
+        String nomeCompleto
+        String cpf
+        String email
+        String telefone
+        LocalDate data
+        StatusMentoria status
+        LocalDateTime dataCriacao
+        Tutor tutor
+        Usuario usuario
     }
     
     class PontoRecarga {
-        -Long id
-        -String nome
-        -String endereco
-        -TipoRecarga tipoRecarga
+        Long id
+        String nome
+        String endereco
+        TipoRecarga tipoRecarga
+        LocalDateTime dataCriacao
+        LocalDateTime dataAtualizacao
     }
     
-    %% Camadas
-    class DAO {
-        <<interface>>
-        +criar()
-        +buscarPorId()
-        +listarTodos()
-        +atualizar()
-        +remover()
-    }
-    
-    class Service {
-        <<interface>>
-        +criar()
-        +buscarPorId()
-        +listarTodos()
-        +atualizar()
-        +deletar()
-    }
-    
-    class Resource {
-        <<interface>>
-        +POST()
-        +GET()
-        +PUT()
-        +DELETE()
-    }
-    
-    %% Relacionamentos entre Entidades
-    Usuario "1" --> "N" Mentoria : agendou
-    Tutor "1" --> "N" Mentoria : ministra
-    Curso "1" --> "N" AulaCurso : contém
-    Oficina "1" --> "N" OficinaServico : oferece
-    
-    %% Relacionamentos de Camadas
-    DAO ..> Usuario : acessa
-    DAO ..> Tutor : acessa
-    DAO ..> Curso : acessa
-    DAO ..> AulaCurso : acessa
-    DAO ..> Oficina : acessa
-    DAO ..> OficinaServico : acessa
-    DAO ..> Mentoria : acessa
-    DAO ..> PontoRecarga : acessa
-    
-    Service --> DAO : usa
-    Resource --> Service : usa
+    Usuario --> Mentoria
+    Tutor --> Mentoria
+    Curso --> AulaCurso
+    Oficina --> OficinaServico
 ```
 
 ## Estrutura de Camadas

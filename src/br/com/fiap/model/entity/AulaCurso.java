@@ -1,6 +1,7 @@
 package br.com.fiap.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -129,6 +130,7 @@ public class AulaCurso {
     }
     
     // Método auxiliar para obter o ID do curso (evita lazy loading)
+    @JsonProperty("cursoId")
     public Long getCursoId() {
         return curso != null ? curso.getId() : null;
     }
