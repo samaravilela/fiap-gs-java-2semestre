@@ -48,10 +48,19 @@ public class AulaCursoResource {
             } else {
                 aulas = aulaCursoService.listarTodos();
             }
+            
+            // Log para debug
+            System.out.println("Total de aulas retornadas: " + (aulas != null ? aulas.size() : 0));
+            
+            if (aulas == null || aulas.isEmpty()) {
+                return Response.ok("[]").build();
+            }
+            
             return Response.ok(aulas).build();
         } catch (Exception e) {
+            e.printStackTrace();
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("Erro interno: " + e.getMessage())
+                    .entity("Erro interno: " + e.getMessage() + " - " + e.getClass().getName())
                     .build();
         }
     }
