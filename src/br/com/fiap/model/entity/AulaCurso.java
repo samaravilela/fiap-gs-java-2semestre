@@ -5,16 +5,21 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
-@Table(name = "T_ZYNT_CURSOS")
-public class Curso {
+@Table(name = "T_ZYNT_AULAS_CURSO")
+public class AulaCurso {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
+    
+    @NotNull(message = "Curso é obrigatório")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CURSO_ID", nullable = false)
+    @JsonIgnore
+    private Curso curso;
     
     @NotBlank(message = "Título é obrigatório")
     @Column(name = "TITULO", nullable = false)
@@ -24,21 +29,17 @@ public class Curso {
     @Lob
     private String descricao;
     
-    @Column(name = "PRECO")
-    private String preco;
+    @Column(name = "URL", length = 500)
+    private String url;
+    
+    @Column(name = "ATIVO")
+    private String ativo;
     
     @Column(name = "DATA_CRIACAO")
     private LocalDateTime dataCriacao;
     
     @Column(name = "DATA_ATUALIZACAO")
     private LocalDateTime dataAtualizacao;
-    
-    @Column(name = "ATIVO")
-    private String ativo;
-    
-    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<AulaCurso> aulas;
     
     @PrePersist
     protected void onCreate() {
@@ -63,6 +64,14 @@ public class Curso {
         this.id = id;
     }
     
+    public Curso getCurso() {
+        return curso;
+    }
+    
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
+    
     public String getTitulo() {
         return titulo;
     }
@@ -79,28 +88,12 @@ public class Curso {
         this.descricao = descricao;
     }
     
-    public String getPreco() {
-        return preco;
+    public String getUrl() {
+        return url;
     }
     
-    public void setPreco(String preco) {
-        this.preco = preco;
-    }
-    
-    public LocalDateTime getDataCriacao() {
-        return dataCriacao;
-    }
-    
-    public void setDataCriacao(LocalDateTime dataCriacao) {
-        this.dataCriacao = dataCriacao;
-    }
-    
-    public LocalDateTime getDataAtualizacao() {
-        return dataAtualizacao;
-    }
-    
-    public void setDataAtualizacao(LocalDateTime dataAtualizacao) {
-        this.dataAtualizacao = dataAtualizacao;
+    public void setUrl(String url) {
+        this.url = url;
     }
     
     public String getAtivo() {
@@ -119,12 +112,25 @@ public class Curso {
         this.ativo = ativo ? "S" : "N";
     }
     
-    public List<AulaCurso> getAulas() {
-        return aulas;
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
     }
     
-    public void setAulas(List<AulaCurso> aulas) {
-        this.aulas = aulas;
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+    
+    public LocalDateTime getDataAtualizacao() {
+        return dataAtualizacao;
+    }
+    
+    public void setDataAtualizacao(LocalDateTime dataAtualizacao) {
+        this.dataAtualizacao = dataAtualizacao;
+    }
+    
+    // Método auxiliar para obter o ID do curso (evita lazy loading)
+    public Long getCursoId() {
+        return curso != null ? curso.getId() : null;
     }
 }
 

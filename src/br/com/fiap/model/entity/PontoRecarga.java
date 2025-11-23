@@ -1,13 +1,12 @@
 package br.com.fiap.model.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "T_ZYNT_TUTORES")
-public class Tutor {
+@Table(name = "T_ZYNT_PONTOS_RECARGA")
+public class PontoRecarga {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,18 +17,13 @@ public class Tutor {
     @Column(name = "NOME", nullable = false)
     private String nome;
     
-    @NotBlank(message = "Especialidade é obrigatória")
-    @Column(name = "ESPECIALIDADE", nullable = false)
-    private String especialidade;
+    @NotBlank(message = "Endereço é obrigatório")
+    @Column(name = "ENDERECO", nullable = false, length = 500)
+    private String endereco;
     
-    @NotBlank(message = "Email é obrigatório")
-    @Email(message = "Email deve ser válido")
-    @Column(name = "EMAIL", nullable = false, unique = true)
-    private String email;
-    
-    @NotBlank(message = "Telefone é obrigatório")
-    @Column(name = "TELEFONE", nullable = false)
-    private String telefone;
+    @Column(name = "TIPO_RECARGA", length = 50)
+    @Enumerated(EnumType.STRING)
+    private TipoRecarga tipoRecarga;
     
     @Column(name = "DATA_CRIACAO")
     private LocalDateTime dataCriacao;
@@ -37,15 +31,12 @@ public class Tutor {
     @Column(name = "DATA_ATUALIZACAO")
     private LocalDateTime dataAtualizacao;
     
-    @Column(name = "ATIVO")
-    private String ativo;
-    
     @PrePersist
     protected void onCreate() {
         dataCriacao = LocalDateTime.now();
         dataAtualizacao = LocalDateTime.now();
-        if (ativo == null) {
-            ativo = "S";
+        if (tipoRecarga == null) {
+            tipoRecarga = TipoRecarga.AC;
         }
     }
     
@@ -71,28 +62,20 @@ public class Tutor {
         this.nome = nome;
     }
     
-    public String getEspecialidade() {
-        return especialidade;
+    public String getEndereco() {
+        return endereco;
     }
     
-    public void setEspecialidade(String especialidade) {
-        this.especialidade = especialidade;
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
     
-    public String getEmail() {
-        return email;
+    public TipoRecarga getTipoRecarga() {
+        return tipoRecarga;
     }
     
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    
-    public String getTelefone() {
-        return telefone;
-    }
-    
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void setTipoRecarga(TipoRecarga tipoRecarga) {
+        this.tipoRecarga = tipoRecarga;
     }
     
     public LocalDateTime getDataCriacao() {
@@ -111,20 +94,8 @@ public class Tutor {
         this.dataAtualizacao = dataAtualizacao;
     }
     
-    public String getAtivo() {
-        return ativo;
-    }
-    
-    public void setAtivo(String ativo) {
-        this.ativo = ativo;
-    }
-    
-    public Boolean isAtivo() {
-        return "S".equals(ativo);
-    }
-    
-    public void setAtivoBoolean(Boolean ativo) {
-        this.ativo = ativo ? "S" : "N";
+    // Enum
+    public enum TipoRecarga {
+        AC, DC, AC_DC
     }
 }
-

@@ -69,7 +69,6 @@ public class OficinaService {
         oficinaExistente.setCnpj(oficina.getCnpj());
         oficinaExistente.setNomeEmpresa(oficina.getNomeEmpresa());
         oficinaExistente.setLocalizacao(oficina.getLocalizacao());
-        oficinaExistente.setServicos(oficina.getServicos());
         oficinaExistente.setEspecialidade(oficina.getEspecialidade());
         
         extrairCidadeEstado(oficinaExistente);

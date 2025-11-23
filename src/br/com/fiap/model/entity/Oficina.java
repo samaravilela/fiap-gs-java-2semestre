@@ -1,13 +1,15 @@
 package br.com.fiap.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
-@Table(name = "T_OFICINAS")
+@Table(name = "T_ZYNT_OFICINAS")
 public class Oficina {
     
     @Id
@@ -34,11 +36,9 @@ public class Oficina {
     @Lob
     private String localizacao;
     
-    @NotBlank(message = "Serviços são obrigatórios")
-    @Size(min = 20, message = "Descrição dos serviços deve ter no mínimo 20 caracteres")
-    @Column(name = "SERVICOS", nullable = false)
-    @Lob
-    private String servicos;
+    @OneToMany(mappedBy = "oficina", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<OficinaServico> servicos;
     
     @Column(name = "CIDADE")
     private String cidade;
@@ -120,11 +120,11 @@ public class Oficina {
         this.localizacao = localizacao;
     }
     
-    public String getServicos() {
+    public List<OficinaServico> getServicos() {
         return servicos;
     }
     
-    public void setServicos(String servicos) {
+    public void setServicos(List<OficinaServico> servicos) {
         this.servicos = servicos;
     }
     

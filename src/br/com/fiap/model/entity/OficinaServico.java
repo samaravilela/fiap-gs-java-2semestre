@@ -1,44 +1,40 @@
 package br.com.fiap.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "T_ZYNT_TUTORES")
-public class Tutor {
+@Table(name = "T_ZYNT_OFICINA_SERVICOS")
+public class OficinaServico {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
     
-    @NotBlank(message = "Nome é obrigatório")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "OFICINA_ID", nullable = false)
+    @JsonIgnore
+    private Oficina oficina;
+    
+    @NotBlank(message = "Nome do serviço é obrigatório")
     @Column(name = "NOME", nullable = false)
     private String nome;
     
-    @NotBlank(message = "Especialidade é obrigatória")
-    @Column(name = "ESPECIALIDADE", nullable = false)
-    private String especialidade;
+    @Column(name = "DESCRICAO")
+    @Lob
+    private String descricao;
     
-    @NotBlank(message = "Email é obrigatório")
-    @Email(message = "Email deve ser válido")
-    @Column(name = "EMAIL", nullable = false, unique = true)
-    private String email;
-    
-    @NotBlank(message = "Telefone é obrigatório")
-    @Column(name = "TELEFONE", nullable = false)
-    private String telefone;
+    @Column(name = "ATIVO")
+    private String ativo;
     
     @Column(name = "DATA_CRIACAO")
     private LocalDateTime dataCriacao;
     
     @Column(name = "DATA_ATUALIZACAO")
     private LocalDateTime dataAtualizacao;
-    
-    @Column(name = "ATIVO")
-    private String ativo;
     
     @PrePersist
     protected void onCreate() {
@@ -63,6 +59,14 @@ public class Tutor {
         this.id = id;
     }
     
+    public Oficina getOficina() {
+        return oficina;
+    }
+    
+    public void setOficina(Oficina oficina) {
+        this.oficina = oficina;
+    }
+    
     public String getNome() {
         return nome;
     }
@@ -71,28 +75,28 @@ public class Tutor {
         this.nome = nome;
     }
     
-    public String getEspecialidade() {
-        return especialidade;
+    public String getDescricao() {
+        return descricao;
     }
     
-    public void setEspecialidade(String especialidade) {
-        this.especialidade = especialidade;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
     
-    public String getEmail() {
-        return email;
+    public String getAtivo() {
+        return ativo;
     }
     
-    public void setEmail(String email) {
-        this.email = email;
+    public void setAtivo(String ativo) {
+        this.ativo = ativo;
     }
     
-    public String getTelefone() {
-        return telefone;
+    public Boolean isAtivo() {
+        return "S".equals(ativo);
     }
     
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void setAtivoBoolean(Boolean ativo) {
+        this.ativo = ativo ? "S" : "N";
     }
     
     public LocalDateTime getDataCriacao() {
@@ -111,20 +115,9 @@ public class Tutor {
         this.dataAtualizacao = dataAtualizacao;
     }
     
-    public String getAtivo() {
-        return ativo;
-    }
-    
-    public void setAtivo(String ativo) {
-        this.ativo = ativo;
-    }
-    
-    public Boolean isAtivo() {
-        return "S".equals(ativo);
-    }
-    
-    public void setAtivoBoolean(Boolean ativo) {
-        this.ativo = ativo ? "S" : "N";
+    // Método auxiliar para obter o ID da oficina (evita lazy loading)
+    public Long getOficinaId() {
+        return oficina != null ? oficina.getId() : null;
     }
 }
 
