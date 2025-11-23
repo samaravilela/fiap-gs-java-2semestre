@@ -37,24 +37,32 @@ public class AulaCursoService {
         return aulaCurso;
     }
     
+    @Transactional
     public AulaCurso buscarPorId(Long id) {
         validarId(id);
         AulaCurso aulaCurso = aulaCursoDAO.buscarPorId(id);
         if (aulaCurso == null) {
             throw new ResourceNotFoundException("Aula com ID " + id + " não encontrada");
         }
+        // Forçar o carregamento do relacionamento
+        if (aulaCurso.getCurso() != null) {
+            aulaCurso.getCurso().getId();
+        }
         return aulaCurso;
     }
     
+    @Transactional
     public List<AulaCurso> listarTodos() {
         return aulaCursoDAO.listarTodos();
     }
     
+    @Transactional
     public List<AulaCurso> buscarPorCursoId(Long cursoId) {
         validarId(cursoId);
         return aulaCursoDAO.buscarPorCursoId(cursoId);
     }
     
+    @Transactional
     public List<AulaCurso> listarAtivas() {
         return aulaCursoDAO.listarAtivas();
     }
