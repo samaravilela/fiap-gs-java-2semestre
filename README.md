@@ -165,6 +165,9 @@ jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL
 
 ```mermaid
 classDiagram
+    direction TB
+    
+    %% Entidades (Model)
     class Usuario {
         -Long id
         -String email
@@ -172,18 +175,6 @@ classDiagram
         -String nome
         -LocalDateTime dataCriacao
         -LocalDateTime dataAtualizacao
-    }
-    
-    class Mentoria {
-        -Long id
-        -String nomeCompleto
-        -String cpf
-        -String email
-        -String telefone
-        -LocalDate data
-        -StatusMentoria status
-        -Tutor tutor
-        -Usuario usuario
     }
     
     class Tutor {
@@ -195,20 +186,11 @@ classDiagram
         -String ativo
     }
     
-    class Oficina {
-        -Long id
-        -String nomeEmpreendimento
-        -String cnpj
-        -String localizacao
-        -StatusOficina status
-        -List~OficinaServico~ servicos
-    }
-    
     class Curso {
         -Long id
         -String titulo
         -String descricao
-        -String preco
+        -String ativo
         -List~AulaCurso~ aulas
     }
     
@@ -217,14 +199,36 @@ classDiagram
         -String titulo
         -String descricao
         -String url
+        -String ativo
         -Curso curso
+    }
+    
+    class Oficina {
+        -Long id
+        -String nomeEmpreendimento
+        -String cnpj
+        -String localizacao
+        -StatusOficina status
+        -List~OficinaServico~ servicosOferecidos
     }
     
     class OficinaServico {
         -Long id
         -String nome
         -String descricao
+        -String ativo
         -Oficina oficina
+    }
+    
+    class Mentoria {
+        -Long id
+        -String nomeCompleto
+        -String cpf
+        -String email
+        -LocalDate data
+        -StatusMentoria status
+        -Tutor tutor
+        -Usuario usuario
     }
     
     class PontoRecarga {
@@ -234,319 +238,51 @@ classDiagram
         -TipoRecarga tipoRecarga
     }
     
-    class UsuarioDAO {
-        +criar(Usuario)
-        +buscarPorId(Long) Usuario
-        +buscarPorEmail(String) Usuario
-        +listarTodos() List~Usuario~
-        +atualizar(Usuario)
-        +remover(Long)
+    %% Camadas
+    class DAO {
+        <<interface>>
+        +criar()
+        +buscarPorId()
+        +listarTodos()
+        +atualizar()
+        +remover()
     }
     
-    class MentoriaDAO {
-        +criar(Mentoria)
-        +buscarPorId(Long) Mentoria
-        +listarTodos() List~Mentoria~
-        +buscarPorEmail(String) List~Mentoria~
-        +atualizar(Mentoria)
-        +remover(Long)
+    class Service {
+        <<interface>>
+        +criar()
+        +buscarPorId()
+        +listarTodos()
+        +atualizar()
+        +deletar()
     }
     
-    class TutorDAO {
-        +criar(Tutor)
-        +buscarPorId(Long) Tutor
-        +listarTodos() List~Tutor~
-        +listarAtivos() List~Tutor~
-        +atualizar(Tutor)
-        +remover(Long)
-    }
-    
-    class OficinaDAO {
-        +criar(Oficina)
-        +buscarPorId(Long) Oficina
-        +buscarPorCnpj(String) Oficina
-        +listarTodos() List~Oficina~
-        +buscarPorTermo(String) List~Oficina~
-        +atualizar(Oficina)
-        +remover(Long)
-    }
-    
-    class CursoDAO {
-        +criar(Curso)
-        +buscarPorId(Long) Curso
-        +listarTodos() List~Curso~
-        +listarAtivos() List~Curso~
-        +atualizar(Curso)
-        +remover(Long)
-    }
-    
-    class AulaCursoDAO {
-        +criar(AulaCurso)
-        +buscarPorId(Long) AulaCurso
-        +listarTodos() List~AulaCurso~
-        +buscarPorCursoId(Long) List~AulaCurso~
-        +listarAtivas() List~AulaCurso~
-        +atualizar(AulaCurso)
-        +remover(Long)
-    }
-    
-    class OficinaServicoDAO {
-        +criar(OficinaServico)
-        +buscarPorId(Long) OficinaServico
-        +listarTodos() List~OficinaServico~
-        +buscarPorOficinaId(Long) List~OficinaServico~
-        +listarAtivos() List~OficinaServico~
-        +atualizar(OficinaServico)
-        +remover(Long)
-    }
-    
-    class PontoRecargaDAO {
-        +criar(PontoRecarga)
-        +buscarPorId(Long) PontoRecarga
-        +listarTodos() List~PontoRecarga~
-        +buscarPorTipo(TipoRecarga) List~PontoRecarga~
-        +buscarPorTermo(String) List~PontoRecarga~
-        +atualizar(PontoRecarga)
-        +remover(Long)
-    }
-    
-    class UsuarioService {
-        +criar(Usuario) Usuario
-        +autenticar(String, String) Usuario
-        +listarTodos() List~Usuario~
-        +buscarPorId(Long) Usuario
-        +atualizar(Usuario) boolean
-        +deletar(Long) boolean
-        -criptografarSenha(String) String
-    }
-    
-    class MentoriaService {
-        +criar(Mentoria) Mentoria
-        +buscarPorId(Long) Mentoria
-        +listarTodos() List~Mentoria~
-        +buscarPorEmail(String) List~Mentoria~
-        +atualizar(Mentoria) boolean
-        +cancelar(Long) boolean
-        +deletar(Long) boolean
-    }
-    
-    class TutorService {
-        +criar(Tutor) Tutor
-        +buscarPorId(Long) Tutor
-        +listarTodos() List~Tutor~
-        +listarAtivos() List~Tutor~
-        +atualizar(Tutor) boolean
-        +deletar(Long) boolean
-    }
-    
-    class OficinaService {
-        +criar(Oficina) Oficina
-        +buscarPorId(Long) Oficina
-        +listarTodos() List~Oficina~
-        +buscarPorTermo(String) List~Oficina~
-        +atualizar(Oficina) boolean
-        +aprovar(Long) boolean
-        +deletar(Long) boolean
-    }
-    
-    class CursoService {
-        +criar(Curso) Curso
-        +buscarPorId(Long) Curso
-        +listarTodos() List~Curso~
-        +listarAtivos() List~Curso~
-        +atualizar(Curso) boolean
-        +deletar(Long) boolean
-    }
-    
-    class AulaCursoService {
-        +criar(AulaCurso) AulaCurso
-        +buscarPorId(Long) AulaCurso
-        +listarTodos() List~AulaCurso~
-        +buscarPorCursoId(Long) List~AulaCurso~
-        +listarAtivas() List~AulaCurso~
-        +atualizar(AulaCurso) boolean
-        +deletar(Long) boolean
-    }
-    
-    class OficinaServicoService {
-        +criar(OficinaServico) OficinaServico
-        +buscarPorId(Long) OficinaServico
-        +listarTodos() List~OficinaServico~
-        +buscarPorOficinaId(Long) List~OficinaServico~
-        +listarAtivos() List~OficinaServico~
-        +atualizar(OficinaServico) boolean
-        +deletar(Long) boolean
-    }
-    
-    class PontoRecargaService {
-        +criar(PontoRecarga) PontoRecarga
-        +buscarPorId(Long) PontoRecarga
-        +listarTodos() List~PontoRecarga~
-        +buscarPorTipo(TipoRecarga) List~PontoRecarga~
-        +buscarPorTermo(String) List~PontoRecarga~
-        +atualizar(PontoRecarga) boolean
-        +deletar(Long) boolean
-    }
-    
-    class UsuarioResource {
-        +criar(Usuario) Response
-        +login(Map) Response
-        +listarTodos() Response
-        +buscarPorId(Long) Response
-        +atualizar(Long, Usuario) Response
-        +deletar(Long) Response
-    }
-    
-    class MentoriaResource {
-        +criar(Mentoria) Response
-        +listarTodos(String) Response
-        +buscarPorId(Long) Response
-        +atualizar(Long, Mentoria) Response
-        +deletar(Long) Response
-        +cancelar(Long) Response
-    }
-    
-    class TutorResource {
-        +criar(Tutor) Response
-        +listarTodos(Boolean) Response
-        +buscarPorId(Long) Response
-        +atualizar(Long, Tutor) Response
-        +deletar(Long) Response
-    }
-    
-    class OficinaResource {
-        +criar(Oficina) Response
-        +listarTodos(String) Response
-        +buscarPorId(Long) Response
-        +buscarPorCidade(String) Response
-        +buscarPorEstado(String) Response
-        +atualizar(Long, Oficina) Response
-        +aprovar(Long) Response
-        +deletar(Long) Response
-    }
-    
-    class CursoResource {
-        +criar(Curso) Response
-        +listarTodos(Boolean) Response
-        +buscarPorId(Long) Response
-        +atualizar(Long, Curso) Response
-        +deletar(Long) Response
-    }
-    
-    class AulaCursoResource {
-        +criar(AulaCurso) Response
-        +listarTodos(Long, Boolean) Response
-        +buscarPorId(Long) Response
-        +atualizar(Long, AulaCurso) Response
-        +deletar(Long) Response
-    }
-    
-    class OficinaServicoResource {
-        +criar(OficinaServico) Response
-        +listarTodos(Long, Boolean) Response
-        +buscarPorId(Long) Response
-        +atualizar(Long, OficinaServico) Response
-        +deletar(Long) Response
-    }
-    
-    class PontoRecargaResource {
-        +criar(PontoRecarga) Response
-        +listarTodos(String, String) Response
-        +buscarPorId(Long) Response
-        +atualizar(Long, PontoRecarga) Response
-        +deletar(Long) Response
-    }
-    
-    class BusinessRuleException {
-        +BusinessRuleException(String)
-    }
-    
-    class ValidationException {
-        +ValidationException(String)
-    }
-    
-    class ResourceNotFoundException {
-        +ResourceNotFoundException(String)
-    }
-    
-    class DatabaseException {
-        +DatabaseException(String)
+    class Resource {
+        <<interface>>
+        +POST()
+        +GET()
+        +PUT()
+        +DELETE()
     }
     
     %% Relacionamentos entre Entidades
-    Mentoria --> Tutor : ManyToOne
-    Mentoria --> Usuario : ManyToOne
-    AulaCurso --> Curso : ManyToOne
-    OficinaServico --> Oficina : ManyToOne
-    Curso --> AulaCurso : OneToMany
-    Oficina --> OficinaServico : OneToMany
+    Usuario "1" --> "N" Mentoria : agendou
+    Tutor "1" --> "N" Mentoria : ministra
+    Curso "1" --> "N" AulaCurso : contém
+    Oficina "1" --> "N" OficinaServico : oferece
     
-    %% Relacionamentos DAO -> Entity
-    UsuarioDAO ..> Usuario : uses
-    MentoriaDAO ..> Mentoria : uses
-    TutorDAO ..> Tutor : uses
-    OficinaDAO ..> Oficina : uses
-    CursoDAO ..> Curso : uses
-    AulaCursoDAO ..> AulaCurso : uses
-    OficinaServicoDAO ..> OficinaServico : uses
-    PontoRecargaDAO ..> PontoRecarga : uses
+    %% Relacionamentos de Camadas
+    DAO ..> Usuario : acessa
+    DAO ..> Tutor : acessa
+    DAO ..> Curso : acessa
+    DAO ..> AulaCurso : acessa
+    DAO ..> Oficina : acessa
+    DAO ..> OficinaServico : acessa
+    DAO ..> Mentoria : acessa
+    DAO ..> PontoRecarga : acessa
     
-    %% Relacionamentos Service -> DAO
-    UsuarioService --> UsuarioDAO : @Inject
-    MentoriaService --> MentoriaDAO : @Inject
-    MentoriaService --> UsuarioDAO : @Inject
-    TutorService --> TutorDAO : @Inject
-    OficinaService --> OficinaDAO : @Inject
-    CursoService --> CursoDAO : @Inject
-    AulaCursoService --> AulaCursoDAO : @Inject
-    AulaCursoService --> CursoDAO : @Inject
-    OficinaServicoService --> OficinaServicoDAO : @Inject
-    OficinaServicoService --> OficinaDAO : @Inject
-    PontoRecargaService --> PontoRecargaDAO : @Inject
-    
-    %% Relacionamentos Service -> Entity
-    UsuarioService ..> Usuario : uses
-    MentoriaService ..> Mentoria : uses
-    MentoriaService ..> Usuario : uses
-    TutorService ..> Tutor : uses
-    OficinaService ..> Oficina : uses
-    CursoService ..> Curso : uses
-    AulaCursoService ..> AulaCurso : uses
-    AulaCursoService ..> Curso : uses
-    OficinaServicoService ..> OficinaServico : uses
-    OficinaServicoService ..> Oficina : uses
-    PontoRecargaService ..> PontoRecarga : uses
-    
-    %% Relacionamentos Resource -> Service
-    UsuarioResource --> UsuarioService : @Inject
-    MentoriaResource --> MentoriaService : @Inject
-    TutorResource --> TutorService : @Inject
-    OficinaResource --> OficinaService : @Inject
-    CursoResource --> CursoService : @Inject
-    AulaCursoResource --> AulaCursoService : @Inject
-    OficinaServicoResource --> OficinaServicoService : @Inject
-    PontoRecargaResource --> PontoRecargaService : @Inject
-    
-    %% Relacionamentos Service -> Exception
-    UsuarioService ..> BusinessRuleException : throws
-    UsuarioService ..> ValidationException : throws
-    UsuarioService ..> ResourceNotFoundException : throws
-    MentoriaService ..> BusinessRuleException : throws
-    MentoriaService ..> ValidationException : throws
-    MentoriaService ..> ResourceNotFoundException : throws
-    TutorService ..> ValidationException : throws
-    TutorService ..> ResourceNotFoundException : throws
-    OficinaService ..> BusinessRuleException : throws
-    OficinaService ..> ValidationException : throws
-    OficinaService ..> ResourceNotFoundException : throws
-    CursoService ..> ValidationException : throws
-    CursoService ..> ResourceNotFoundException : throws
-    AulaCursoService ..> ValidationException : throws
-    AulaCursoService ..> ResourceNotFoundException : throws
-    OficinaServicoService ..> ValidationException : throws
-    OficinaServicoService ..> ResourceNotFoundException : throws
-    PontoRecargaService ..> ValidationException : throws
-    PontoRecargaService ..> ResourceNotFoundException : throws
+    Service --> DAO : usa
+    Resource --> Service : usa
 ```
 
 ## Estrutura de Camadas
