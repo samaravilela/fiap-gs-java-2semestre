@@ -90,46 +90,68 @@ public class AulaCursoResource {
                 try {
                     Map<String, Object> aulaMap = new HashMap<>();
                     
-                    // ID - índice 0
+                    // ID - índice 0 - Converter Number de forma segura
                     if (row[0] != null) {
-                        aulaMap.put("id", ((Number) row[0]).longValue());
+                        if (row[0] instanceof Number) {
+                            aulaMap.put("id", ((Number) row[0]).longValue());
+                        } else {
+                            aulaMap.put("id", Long.parseLong(String.valueOf(row[0])));
+                        }
                     }
-                    // CURSO_ID - índice 1
+                    
+                    // CURSO_ID - índice 1 - Converter Number de forma segura
                     if (row[1] != null) {
-                        aulaMap.put("cursoId", ((Number) row[1]).longValue());
+                        if (row[1] instanceof Number) {
+                            aulaMap.put("cursoId", ((Number) row[1]).longValue());
+                        } else {
+                            aulaMap.put("cursoId", Long.parseLong(String.valueOf(row[1])));
+                        }
                     }
-                    // TITULO - índice 2
+                    
+                    // TITULO - índice 2 - Converter String de forma segura
                     if (row[2] != null) {
-                        aulaMap.put("titulo", (String) row[2]);
+                        aulaMap.put("titulo", String.valueOf(row[2]));
                     }
-                    // DESCRICAO - índice 3
+                    
+                    // DESCRICAO - índice 3 - Converter String de forma segura
                     if (row[3] != null) {
-                        aulaMap.put("descricao", (String) row[3]);
+                        aulaMap.put("descricao", String.valueOf(row[3]));
                     }
-                    // URL - índice 4
+                    
+                    // URL - índice 4 - Converter String de forma segura
                     if (row[4] != null) {
                         String url = String.valueOf(row[4]);
                         if (!"null".equalsIgnoreCase(url) && !url.trim().isEmpty()) {
                             aulaMap.put("url", url);
                         }
                     }
-                    // ATIVO - índice 5
-                    aulaMap.put("ativo", row[5] != null ? (String) row[5] : "S");
+                    
+                    // ATIVO - índice 5 - Converter String de forma segura
+                    if (row[5] != null) {
+                        aulaMap.put("ativo", String.valueOf(row[5]));
+                    } else {
+                        aulaMap.put("ativo", "S");
+                    }
                     
                     // DATA_CRIACAO - índice 6
                     if (row[6] != null) {
                         if (row[6] instanceof java.sql.Timestamp) {
                             aulaMap.put("dataCriacao", ((java.sql.Timestamp) row[6]).toLocalDateTime().toString());
-                        } else {
+                        } else if (row[6] instanceof java.time.LocalDateTime) {
                             aulaMap.put("dataCriacao", row[6].toString());
+                        } else {
+                            aulaMap.put("dataCriacao", String.valueOf(row[6]));
                         }
                     }
+                    
                     // DATA_ATUALIZACAO - índice 7
                     if (row[7] != null) {
                         if (row[7] instanceof java.sql.Timestamp) {
                             aulaMap.put("dataAtualizacao", ((java.sql.Timestamp) row[7]).toLocalDateTime().toString());
-                        } else {
+                        } else if (row[7] instanceof java.time.LocalDateTime) {
                             aulaMap.put("dataAtualizacao", row[7].toString());
+                        } else {
+                            aulaMap.put("dataAtualizacao", String.valueOf(row[7]));
                         }
                     }
                     
