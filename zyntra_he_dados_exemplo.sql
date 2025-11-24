@@ -61,57 +61,57 @@ INSERT INTO T_ZYNT_CURSOS (TITULO, DESCRICAO, DATA_CRIACAO, DATA_ATUALIZACAO, AT
 INSERT INTO T_ZYNT_AULAS_CURSO (CURSO_ID, TITULO, DESCRICAO, URL, ATIVO, DATA_CRIACAO, DATA_ATUALIZACAO) VALUES
 (1, 'Introdução às Baterias de Íon-Lítio', 
  'Conceitos fundamentais sobre baterias de íon-lítio usadas em veículos elétricos e híbridos.', 
- 'https://www.youtube.com/watch?v=9OVtk6G2TnQ', 
+ 'https://youtu.be/SpCmqPe5XjU', 
  'S', SYSTIMESTAMP, SYSTIMESTAMP);
 
 INSERT INTO T_ZYNT_AULAS_CURSO (CURSO_ID, TITULO, DESCRICAO, URL, ATIVO, DATA_CRIACAO, DATA_ATUALIZACAO) VALUES
 (1, 'Segurança no Manuseio de Baterias', 
  'Protocolos de segurança essenciais para trabalhar com baterias de alta tensão.', 
- 'https://www.youtube.com/watch?v=KXWf7c6pX5Y', 
+ 'https://youtu.be/-IHpyT_HxJs', 
  'S', SYSTIMESTAMP, SYSTIMESTAMP);
 
 INSERT INTO T_ZYNT_AULAS_CURSO (CURSO_ID, TITULO, DESCRICAO, URL, ATIVO, DATA_CRIACAO, DATA_ATUALIZACAO) VALUES
 (1, 'Diagnóstico de Problemas em Baterias', 
  'Como identificar e diagnosticar problemas comuns em sistemas de baterias VHE.', 
- 'https://www.youtube.com/watch?v=zN7XQVfr4PY', 
+ 'https://youtu.be/Ty23mQQQ3sE', 
  'S', SYSTIMESTAMP, SYSTIMESTAMP);
 
 -- Aulas do Curso 2 (Formação Completa)
 INSERT INTO T_ZYNT_AULAS_CURSO (CURSO_ID, TITULO, DESCRICAO, URL, ATIVO, DATA_CRIACAO, DATA_ATUALIZACAO) VALUES
 (2, 'Fundamentos de Veículos Híbridos', 
  'Entenda como funcionam os sistemas híbridos e suas principais diferenças em relação aos veículos convencionais.', 
- 'https://www.youtube.com/watch?v=3R8Vc0B5Z8E', 
+ 'https://youtu.be/QQSoL8-EWU8', 
  'S', SYSTIMESTAMP, SYSTIMESTAMP);
 
 INSERT INTO T_ZYNT_AULAS_CURSO (CURSO_ID, TITULO, DESCRICAO, URL, ATIVO, DATA_CRIACAO, DATA_ATUALIZACAO) VALUES
 (2, 'Sistemas de Propulsão Elétrica', 
  'Aprofunde-se nos motores elétricos, inversores e sistemas de controle de veículos elétricos.', 
- 'https://www.youtube.com/watch?v=QpVxRU6f3-o', 
+ 'https://youtu.be/MQWaGvky1tc', 
  'S', SYSTIMESTAMP, SYSTIMESTAMP);
 
 INSERT INTO T_ZYNT_AULAS_CURSO (CURSO_ID, TITULO, DESCRICAO, URL, ATIVO, DATA_CRIACAO, DATA_ATUALIZACAO) VALUES
 (2, 'Manutenção de Inversores e Controladores', 
  'Técnicas de manutenção e reparo de inversores e controladores em veículos elétricos.', 
- 'https://www.youtube.com/watch?v=8Xa2nodQ2UY', 
+ 'https://youtu.be/qvTU_53Mac8', 
  'S', SYSTIMESTAMP, SYSTIMESTAMP);
 
 -- Aulas do Curso 3 (Diagnóstico Avançado)
 INSERT INTO T_ZYNT_AULAS_CURSO (CURSO_ID, TITULO, DESCRICAO, URL, ATIVO, DATA_CRIACAO, DATA_ATUALIZACAO) VALUES
 (3, 'Equipamentos de Diagnóstico para VHE', 
  'Conheça os equipamentos especializados necessários para diagnóstico em veículos híbridos e elétricos.', 
- 'https://www.youtube.com/watch?v=5X-Kb7l8hqM', 
+ 'https://youtu.be/cKN8ksUdah0', 
  'S', SYSTIMESTAMP, SYSTIMESTAMP);
 
 INSERT INTO T_ZYNT_AULAS_CURSO (CURSO_ID, TITULO, DESCRICAO, URL, ATIVO, DATA_CRIACAO, DATA_ATUALIZACAO) VALUES
 (3, 'Interpretação de Códigos de Erro OBD', 
  'Aprenda a interpretar e diagnosticar códigos de erro específicos de veículos elétricos e híbridos.', 
- 'https://www.youtube.com/watch?v=6Xv5nYj4JqI', 
+ 'https://youtu.be/Y8CeM5m92Jk', 
  'S', SYSTIMESTAMP, SYSTIMESTAMP);
 
 INSERT INTO T_ZYNT_AULAS_CURSO (CURSO_ID, TITULO, DESCRICAO, URL, ATIVO, DATA_CRIACAO, DATA_ATUALIZACAO) VALUES
 (3, 'Análise de Sistemas de Alta Tensão', 
  'Técnicas seguras para análise e diagnóstico de sistemas de alta tensão em veículos elétricos.', 
- 'https://www.youtube.com/watch?v=7Yv6nZ5kLpM', 
+ 'https://youtu.be/tCOgURWNna0', 
  'S', SYSTIMESTAMP, SYSTIMESTAMP);
 
 ------------------------------------------------------------
