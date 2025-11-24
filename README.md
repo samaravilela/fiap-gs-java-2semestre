@@ -481,78 +481,78 @@ classDiagram
     
     class UsuarioResource {
         -UsuarioService usuarioService
-        +POST /api/usuarios criar(Usuario) Response
-        +POST /api/usuarios/login login(String, String) Response
-        +GET /api/usuarios/{id} buscarPorId(Long) Response
-        +PUT /api/usuarios/{id} atualizar(Long, Usuario) Response
-        +DELETE /api/usuarios/{id} deletar(Long) Response
+        +criar(Usuario) Response
+        +login(String, String) Response
+        +buscarPorId(Long) Response
+        +atualizar(Long, Usuario) Response
+        +deletar(Long) Response
     }
     
     class TutorResource {
         -TutorService tutorService
-        +POST /api/tutores criar(Tutor) Response
-        +GET /api/tutores listarTodos(Boolean) Response
-        +GET /api/tutores/{id} buscarPorId(Long) Response
-        +PUT /api/tutores/{id} atualizar(Long, Tutor) Response
-        +DELETE /api/tutores/{id} deletar(Long) Response
+        +criar(Tutor) Response
+        +listarTodos(Boolean) Response
+        +buscarPorId(Long) Response
+        +atualizar(Long, Tutor) Response
+        +deletar(Long) Response
     }
     
     class CursoResource {
         -CursoService cursoService
-        +POST /api/cursos criar(Curso) Response
-        +GET /api/cursos listarTodos(Boolean) Response
-        +GET /api/cursos/{id} buscarPorId(Long) Response
-        +PUT /api/cursos/{id} atualizar(Long, Curso) Response
-        +DELETE /api/cursos/{id} deletar(Long) Response
+        +criar(Curso) Response
+        +listarTodos(Boolean) Response
+        +buscarPorId(Long) Response
+        +atualizar(Long, Curso) Response
+        +deletar(Long) Response
     }
     
     class AulaCursoResource {
         -AulaCursoService aulaCursoService
-        +POST /api/aulas-curso criar(AulaCurso) Response
-        +GET /api/aulas-curso listarTodos(Long, Boolean) Response
-        +GET /api/aulas-curso/{id} buscarPorId(Long) Response
-        +PUT /api/aulas-curso/{id} atualizar(Long, AulaCurso) Response
-        +DELETE /api/aulas-curso/{id} deletar(Long) Response
+        +criar(AulaCurso) Response
+        +listarTodos(Long, Boolean) Response
+        +buscarPorId(Long) Response
+        +atualizar(Long, AulaCurso) Response
+        +deletar(Long) Response
     }
     
     class OficinaResource {
         -OficinaService oficinaService
-        +POST /api/oficinas criar(Oficina) Response
-        +GET /api/oficinas listarTodos() Response
-        +GET /api/oficinas/{id} buscarPorId(Long) Response
-        +GET /api/oficinas/cidade/{cidade} buscarPorCidade(String) Response
-        +GET /api/oficinas/estado/{estado} buscarPorEstado(String) Response
-        +PUT /api/oficinas/{id} atualizar(Long, Oficina) Response
-        +POST /api/oficinas/{id}/aprovar aprovar(Long) Response
-        +DELETE /api/oficinas/{id} deletar(Long) Response
+        +criar(Oficina) Response
+        +listarTodos() Response
+        +buscarPorId(Long) Response
+        +buscarPorCidade(String) Response
+        +buscarPorEstado(String) Response
+        +atualizar(Long, Oficina) Response
+        +aprovar(Long) Response
+        +deletar(Long) Response
     }
     
     class OficinaServicoResource {
         -OficinaServicoService oficinaServicoService
-        +POST /api/oficina-servicos criar(OficinaServico) Response
-        +GET /api/oficina-servicos listarTodos(Long, Boolean) Response
-        +GET /api/oficina-servicos/{id} buscarPorId(Long) Response
-        +PUT /api/oficina-servicos/{id} atualizar(Long, OficinaServico) Response
-        +DELETE /api/oficina-servicos/{id} deletar(Long) Response
+        +criar(OficinaServico) Response
+        +listarTodos(Long, Boolean) Response
+        +buscarPorId(Long) Response
+        +atualizar(Long, OficinaServico) Response
+        +deletar(Long) Response
     }
     
     class MentoriaResource {
         -MentoriaService mentoriaService
-        +POST /api/mentorias criar(Mentoria) Response
-        +GET /api/mentorias listarTodos(String) Response
-        +GET /api/mentorias/{id} buscarPorId(Long) Response
-        +PUT /api/mentorias/{id} atualizar(Long, Mentoria) Response
-        +DELETE /api/mentorias/{id} deletar(Long) Response
-        +POST /api/mentorias/{id}/cancelar cancelar(Long) Response
+        +criar(Mentoria) Response
+        +listarTodos(String) Response
+        +buscarPorId(Long) Response
+        +atualizar(Long, Mentoria) Response
+        +deletar(Long) Response
+        +cancelar(Long) Response
     }
     
     class PontoRecargaResource {
         -PontoRecargaService pontoRecargaService
-        +POST /api/pontos-recarga criar(PontoRecarga) Response
-        +GET /api/pontos-recarga listarTodos(TipoRecarga, String) Response
-        +GET /api/pontos-recarga/{id} buscarPorId(Long) Response
-        +PUT /api/pontos-recarga/{id} atualizar(Long, PontoRecarga) Response
-        +DELETE /api/pontos-recarga/{id} deletar(Long) Response
+        +criar(PontoRecarga) Response
+        +listarTodos(TipoRecarga, String) Response
+        +buscarPorId(Long) Response
+        +atualizar(Long, PontoRecarga) Response
+        +deletar(Long) Response
     }
     
     %% ============================================
