@@ -24,7 +24,6 @@ public class AulaCursoService {
     public AulaCurso criar(AulaCurso aulaCurso) {
         validarAulaCurso(aulaCurso);
         
-        // Verificar se o curso existe
         if (aulaCurso.getCurso() != null && aulaCurso.getCurso().getId() != null) {
             Curso curso = cursoDAO.buscarPorId(aulaCurso.getCurso().getId());
             if (curso == null) {
@@ -37,32 +36,30 @@ public class AulaCursoService {
         return aulaCurso;
     }
     
-    @Transactional
     public AulaCurso buscarPorId(Long id) {
         validarId(id);
         AulaCurso aulaCurso = aulaCursoDAO.buscarPorId(id);
         if (aulaCurso == null) {
             throw new ResourceNotFoundException("Aula com ID " + id + " não encontrada");
         }
-        // Forçar o carregamento do relacionamento
-        if (aulaCurso.getCurso() != null) {
-            aulaCurso.getCurso().getId();
+        if (aulaCurso.getCurso() != null && aulaCurso.getCursoId() == null) {
+            aulaCurso.setCursoId(aulaCurso.getCurso().getId());
         }
         return aulaCurso;
     }
     
-    @Transactional
     public List<AulaCurso> listarTodos() {
-        return aulaCursoDAO.listarTodos();
+        System.out.println("AulaCursoService.listarTodos() chamado");
+        List<AulaCurso> result = aulaCursoDAO.listarTodos();
+        System.out.println("AulaCursoService.listarTodos() retornou " + (result != null ? result.size() : 0) + " aulas");
+        return result;
     }
     
-    @Transactional
     public List<AulaCurso> buscarPorCursoId(Long cursoId) {
         validarId(cursoId);
         return aulaCursoDAO.buscarPorCursoId(cursoId);
     }
     
-    @Transactional
     public List<AulaCurso> listarAtivas() {
         return aulaCursoDAO.listarAtivas();
     }
@@ -115,4 +112,3 @@ public class AulaCursoService {
         }
     }
 }
-
