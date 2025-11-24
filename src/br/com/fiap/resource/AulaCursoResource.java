@@ -62,6 +62,21 @@ public class AulaCursoResource {
             System.out.println("cursoId: " + cursoId + ", ativos: " + ativos);
             System.out.println("========================================");
             
+            // PRIMEIRO: Verificar se há dados na tabela
+            try {
+                @SuppressWarnings("unchecked")
+                List<Object[]> countResult = entityManager.createNativeQuery("SELECT COUNT(*) FROM T_ZYNT_AULAS_CURSO").getResultList();
+                Long totalRegistros = ((Number) countResult.get(0)[0]).longValue();
+                System.out.println("✓ TOTAL de registros na tabela T_ZYNT_AULAS_CURSO: " + totalRegistros);
+                
+                if (totalRegistros == 0) {
+                    System.out.println("⚠ AVISO: Tabela está VAZIA! Os dados podem não ter sido inseridos no banco de produção.");
+                }
+            } catch (Exception countEx) {
+                System.err.println("✗ ERRO ao contar registros: " + countEx.getMessage());
+                countEx.printStackTrace();
+            }
+            
             // SEMPRE fazer busca direta no banco para garantir que funcione
             String sql = "SELECT ID, CURSO_ID, TITULO, DESCRICAO, URL, ATIVO, DATA_CRIACAO, DATA_ATUALIZACAO FROM T_ZYNT_AULAS_CURSO";
             
@@ -73,10 +88,14 @@ public class AulaCursoResource {
             sql += " ORDER BY TITULO";
             
             System.out.println("SQL: " + sql);
+            if (cursoId != null) {
+                System.out.println("Parâmetro cursoId: " + cursoId);
+            }
             
             jakarta.persistence.Query query = entityManager.createNativeQuery(sql);
             if (cursoId != null) {
                 query.setParameter("cursoId", cursoId);
+                System.out.println("✓ Parâmetro cursoId definido: " + cursoId);
             }
             
             @SuppressWarnings("unchecked")
