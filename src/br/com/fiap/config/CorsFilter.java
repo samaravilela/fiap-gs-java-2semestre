@@ -54,6 +54,15 @@ public class CorsFilter implements ContainerRequestFilter, ContainerResponseFilt
         
         if (origin != null && isOriginAllowed(origin)) {
             MultivaluedMap<String, Object> headers = responseContext.getHeaders();
+            
+            // Remover headers CORS existentes para evitar duplicação
+            headers.remove("Access-Control-Allow-Origin");
+            headers.remove("Access-Control-Allow-Credentials");
+            headers.remove("Access-Control-Allow-Headers");
+            headers.remove("Access-Control-Allow-Methods");
+            headers.remove("Access-Control-Max-Age");
+            
+            // Adicionar headers CORS corretos
             headers.putSingle("Access-Control-Allow-Origin", origin);
             headers.putSingle("Access-Control-Allow-Credentials", "false");
             headers.putSingle("Access-Control-Allow-Headers", "Content-Type, Authorization, Accept, X-Requested-With, Origin");
