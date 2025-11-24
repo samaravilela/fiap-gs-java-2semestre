@@ -68,17 +68,33 @@ public class AulaCursoDAO {
             try {
                 AulaCurso a = new AulaCurso();
                 a.setId(((Number) row[0]).longValue());
-                a.setCursoId(((Number) row[1]).longValue());
+                
+                // IMPORTANTE: Setar cursoId usando setCursoId para popular cursoIdTransient
+                Long cursoId = row[1] != null ? ((Number) row[1]).longValue() : null;
+                if (cursoId != null) {
+                    a.setCursoId(cursoId);
+                }
+                
                 a.setTitulo((String) row[2]);
                 a.setDescricao((String) row[3]);
                 a.setUrl(row[4] != null ? (String) row[4] : null);
-                a.setAtivo((String) row[5]);
+                a.setAtivo(row[5] != null ? (String) row[5] : "S");
+                
                 if (row[6] != null) {
-                    a.setDataCriacao(((java.sql.Timestamp) row[6]).toLocalDateTime());
+                    if (row[6] instanceof java.sql.Timestamp) {
+                        a.setDataCriacao(((java.sql.Timestamp) row[6]).toLocalDateTime());
+                    } else if (row[6] instanceof java.time.LocalDateTime) {
+                        a.setDataCriacao((java.time.LocalDateTime) row[6]);
+                    }
                 }
                 if (row[7] != null) {
-                    a.setDataAtualizacao(((java.sql.Timestamp) row[7]).toLocalDateTime());
+                    if (row[7] instanceof java.sql.Timestamp) {
+                        a.setDataAtualizacao(((java.sql.Timestamp) row[7]).toLocalDateTime());
+                    } else if (row[7] instanceof java.time.LocalDateTime) {
+                        a.setDataAtualizacao((java.time.LocalDateTime) row[7]);
+                    }
                 }
+                
                 aulas.add(a);
             } catch (Exception e) {
                 System.err.println("Erro ao converter linha: " + e.getMessage());

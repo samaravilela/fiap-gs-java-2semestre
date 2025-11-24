@@ -40,6 +40,8 @@ public class AulaCursoResource {
     @GET
     public Response listarTodos(@QueryParam("cursoId") Long cursoId, @QueryParam("ativos") Boolean ativos) {
         try {
+            System.out.println("AulaCursoResource.listarTodos() - cursoId: " + cursoId + ", ativos: " + ativos);
+            
             List<AulaCurso> aulas;
             if (cursoId != null) {
                 aulas = aulaCursoService.buscarPorCursoId(cursoId);
@@ -56,8 +58,18 @@ public class AulaCursoResource {
                 aulas = new java.util.ArrayList<>();
             }
             
+            // Log detalhado de cada aula
+            if (aulas != null && !aulas.isEmpty()) {
+                for (AulaCurso aula : aulas) {
+                    System.out.println("Aula: ID=" + aula.getId() + ", Título=" + aula.getTitulo() + ", CursoId=" + aula.getCursoId());
+                }
+            } else {
+                System.out.println("AVISO: Lista de aulas está vazia ou nula!");
+            }
+            
             return Response.ok(aulas).build();
         } catch (Exception e) {
+            System.err.println("ERRO em listarTodos: " + e.getMessage());
             e.printStackTrace();
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                     .entity("Erro interno: " + e.getMessage() + " - " + e.getClass().getName())
