@@ -89,6 +89,9 @@
             <quarkus.datasource.jdbc.driver>oracle.jdbc.OracleDriver</quarkus.datasource.jdbc.driver>
             <quarkus.profile>prod</quarkus.profile>
           </properties>
+          <jvmArgs>
+            <jvmArg>-Dnet.bytebuddy.experimental=true</jvmArg>
+          </jvmArgs>
         </configuration>
         <executions>
           <execution>

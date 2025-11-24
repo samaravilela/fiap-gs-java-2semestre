@@ -23,64 +23,66 @@ public class AulaCursoDAO {
     }
     
     public List<AulaCurso> listarTodos() {
-        TypedQuery<AulaCurso> query = entityManager.createQuery(
-            "SELECT a FROM AulaCurso a ORDER BY a.titulo", AulaCurso.class);
-        List<AulaCurso> aulas = query.getResultList();
-        
-        // Setar o cursoId para cada aula usando query nativa separada
-        for (AulaCurso aula : aulas) {
-            try {
-                Object cursoIdObj = entityManager.createNativeQuery(
-                    "SELECT CURSO_ID FROM T_ZYNT_AULAS_CURSO WHERE ID = ?")
-                    .setParameter(1, aula.getId())
-                    .getSingleResult();
-                if (cursoIdObj != null) {
-                    aula.setCursoId(((Number) cursoIdObj).longValue());
-                }
-            } catch (Exception e) {
-                // Ignora erro e continua
-            }
+        try {
+            @SuppressWarnings("unchecked")
+            List<Object[]> rows = entityManager.createNativeQuery(
+                "SELECT ID, CURSO_ID, TITULO, DESCRICAO, URL, ATIVO, DATA_CRIACAO, DATA_ATUALIZACAO FROM T_ZYNT_AULAS_CURSO ORDER BY TITULO")
+                .getResultList();
+            
+            System.out.println("AulaCursoDAO.listarTodos() - Linhas retornadas do banco: " + rows.size());
+            
+            List<AulaCurso> aulas = converterRows(rows);
+            
+            System.out.println("AulaCursoDAO.listarTodos() - Aulas convertidas: " + aulas.size());
+            
+            return aulas;
+        } catch (Exception e) {
+            System.err.println("ERRO em listarTodos: " + e.getMessage());
+            e.printStackTrace();
+            return new java.util.ArrayList<>();
         }
-        return aulas;
     }
     
     public List<AulaCurso> buscarPorCursoId(Long cursoId) {
-        // Usar query nativa para buscar diretamente pelo CURSO_ID
         @SuppressWarnings("unchecked")
-        List<Long> ids = entityManager.createNativeQuery(
-            "SELECT ID FROM T_ZYNT_AULAS_CURSO WHERE CURSO_ID = ?")
+        List<Object[]> rows = entityManager.createNativeQuery(
+            "SELECT ID, CURSO_ID, TITULO, DESCRICAO, URL, ATIVO, DATA_CRIACAO, DATA_ATUALIZACAO FROM T_ZYNT_AULAS_CURSO WHERE CURSO_ID = ? ORDER BY TITULO")
             .setParameter(1, cursoId)
             .getResultList();
         
-        // Buscar as entidades pelos IDs
-        List<AulaCurso> aulas = new java.util.ArrayList<>();
-        for (Long id : ids) {
-            AulaCurso aula = entityManager.find(AulaCurso.class, id);
-            if (aula != null) {
-                aula.setCursoId(cursoId);
-                aulas.add(aula);
-            }
-        }
-        return aulas;
+        return converterRows(rows);
     }
     
     public List<AulaCurso> listarAtivas() {
-        TypedQuery<AulaCurso> query = entityManager.createQuery(
-            "SELECT a FROM AulaCurso a WHERE a.ativo = 'S' ORDER BY a.titulo", AulaCurso.class);
-        List<AulaCurso> aulas = query.getResultList();
+        @SuppressWarnings("unchecked")
+        List<Object[]> rows = entityManager.createNativeQuery(
+            "SELECT ID, CURSO_ID, TITULO, DESCRICAO, URL, ATIVO, DATA_CRIACAO, DATA_ATUALIZACAO FROM T_ZYNT_AULAS_CURSO WHERE ATIVO = 'S' ORDER BY TITULO")
+            .getResultList();
         
-        // Setar o cursoId para cada aula
-        for (AulaCurso aula : aulas) {
+        return converterRows(rows);
+    }
+    
+    private List<AulaCurso> converterRows(List<Object[]> rows) {
+        List<AulaCurso> aulas = new java.util.ArrayList<>();
+        for (Object[] row : rows) {
             try {
-                Object cursoIdObj = entityManager.createNativeQuery(
-                    "SELECT CURSO_ID FROM T_ZYNT_AULAS_CURSO WHERE ID = ?")
-                    .setParameter(1, aula.getId())
-                    .getSingleResult();
-                if (cursoIdObj != null) {
-                    aula.setCursoId(((Number) cursoIdObj).longValue());
+                AulaCurso a = new AulaCurso();
+                a.setId(((Number) row[0]).longValue());
+                a.setCursoId(((Number) row[1]).longValue());
+                a.setTitulo((String) row[2]);
+                a.setDescricao((String) row[3]);
+                a.setUrl(row[4] != null ? (String) row[4] : null);
+                a.setAtivo((String) row[5]);
+                if (row[6] != null) {
+                    a.setDataCriacao(((java.sql.Timestamp) row[6]).toLocalDateTime());
                 }
+                if (row[7] != null) {
+                    a.setDataAtualizacao(((java.sql.Timestamp) row[7]).toLocalDateTime());
+                }
+                aulas.add(a);
             } catch (Exception e) {
-                // Ignora erro e continua
+                System.err.println("Erro ao converter linha: " + e.getMessage());
+                e.printStackTrace();
             }
         }
         return aulas;
